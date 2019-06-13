@@ -21121,3 +21121,9 @@ text-align: center;
 .login-box-body .card {
     height: 100% !important;
 }
+.WithWidth\(Dashboard\)-content-334, .WithWidth\(Dashboard\)-content-6 {
+    margin-top: 0px !important;
+}
+.WithWidth\(Dashboard\)-contentShift-7 {
+    margin-left: 0px !important;
+}

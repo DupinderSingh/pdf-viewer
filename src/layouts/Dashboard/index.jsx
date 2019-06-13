@@ -48,30 +48,30 @@ class Dashboard extends Component {
 
     return (
       <Fragment>
-        <Topbar
-          className={classNames(classes.topbar, {
-            [classes.topbarShift]: shiftTopbar
-          })}
-          isSidebarOpen={isOpen}
-          onToggleSidebar={this.handleToggleOpen}
-          title={title}
-        />
-        <Drawer
-          anchor="left"
-          classes={{ paper: classes.drawerPaper }}
-          onClose={this.handleClose}
-          open={isOpen}
-          variant={isMobile ? 'temporary' : 'persistent'}
-        >
-          <Sidebar className={classes.sidebar} />
-        </Drawer>
+        {/*<Topbar*/}
+        {/*  className={classNames(classes.topbar, {*/}
+        {/*    [classes.topbarShift]: shiftTopbar*/}
+        {/*  })}*/}
+        {/*  isSidebarOpen={isOpen}*/}
+        {/*  onToggleSidebar={this.handleToggleOpen}*/}
+        {/*  title={title}*/}
+        {/*/>*/}
+        {/*<Drawer*/}
+        {/*  anchor="left"*/}
+        {/*  classes={{ paper: classes.drawerPaper }}*/}
+        {/*  onClose={this.handleClose}*/}
+        {/*  open={isOpen}*/}
+        {/*  variant={isMobile ? 'temporary' : 'persistent'}*/}
+        {/*>*/}
+        {/*  <Sidebar className={classes.sidebar} />*/}
+        {/*</Drawer>*/}
         <main
           className={classNames(classes.content, {
             [classes.contentShift]: shiftContent
           })}
         >
           {children}
-          <Footer />
+          {/*<Footer />*/}
         </main>
       </Fragment>
     );
