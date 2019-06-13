@@ -3,21 +3,13 @@ import {
     GET_PROFILE_FAILURE,
     GET_PROFILE_REQUEST,
     GET_PROFILE_SUCCESS,
-    CHANGE_EDIT_STATE,
-    CHANGE_TEMP_PROFILE_STATE,
+    CHANGE_PROFILE_STATE,
     UPDATE_PROFILE_INFO_REQUEST, UPDATE_PROFILE_INFO_SUCCESS, UPDATE_PROFILE_INFO_FAILURE,
     UPDATE_PROFILE_PHOTO_REQUEST, UPDATE_PROFILE_PHOTO_SUCCESS, UPDATE_PROFILE_PHOTO_FAILURE
 } from "../../types/dashboard/profile";
 
 const initialState = {
     profile: {
-        "user_id": "",
-        "name": "",
-        "mobile_data": "",
-        "photo": "",
-        "email": ""
-    },
-    profile_temp: {
         "user_id": "",
         "name": "",
         "mobile_data": "",
@@ -35,8 +27,7 @@ const initialState = {
     updateProfilePhotoPageLoading: false,
     updateProfilePhotoStatus: "",
     updateProfilePhotoError: "",
-    updateProfilePhotoMessage: "",
-    edit: true
+    updateProfilePhotoMessage: ""
 };
 
 export default function profileReducer(state = initialState, action) {
@@ -89,16 +80,11 @@ export default function profileReducer(state = initialState, action) {
                 },
                 getProfileMessage: action.response.data.message
             });
-        case CHANGE_EDIT_STATE:
-            return Object.assign({}, state, {
-                edit: action.status
-            });
         case CLEAR_PROFILE_API_RESPONSE:
             return Object.assign({}, state, {
                 getProfileStatus: "",
                 getProfileError: "",
                 getProfileMessage: "",
-                edit: false,
                 updateProfileInfoStatus: "",
                 updateProfileInfoError: "",
                 updateProfileInfoMessage: "",
@@ -108,18 +94,11 @@ export default function profileReducer(state = initialState, action) {
                     "mobile_data": "",
                     "photo": "",
                     "email": ""
-                },
-                profile_temp: {
-                    "user_id": "",
-                    "name": "",
-                    "mobile_data": "",
-                    "photo": "",
-                    "email": ""
                 }
             });
-        case CHANGE_TEMP_PROFILE_STATE:
+        case CHANGE_PROFILE_STATE:
             return Object.assign({}, state, {
-                profile_temp: action.newState,
+                profile: action.newState,
                 updateProfileInfoStatus: "",
                 updateProfileInfoError: "",
                 updateProfileInfoMessage: "",

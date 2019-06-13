@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
-
-// Externals
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-
-// Material helpers
 import { withStyles } from '@material-ui/core';
-
-// Material components
-import { Button, TextField } from '@material-ui/core';
-
-// Shared components
 import {
   Portlet,
   PortletHeader,
@@ -18,140 +11,183 @@ import {
   PortletContent,
   PortletFooter
 } from '../../../../components';
-
-// Component styles
 import styles from './styles';
-
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+import Input from "../../../app/input";
+import {
+  changeProfileState,
+  getProfile,
+  updateProfileInfo
+} from "../../../../actions/dashboard/profile";
+import {checkValidation} from "../../../../actions/app";
+import createNotification from "../../../../components/app/notification";
 
 class Account extends Component {
-  state = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'contact@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
-  };
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextProps.updateProfileInfoStatus !== "" && nextProps.updateProfileInfoError !== "") {
+      if (nextProps.updateProfileInfoStatus === 200) {
+        if (!nextProps.updateProfileInfoError) {
+          nextProps.dispatch(changeProfileState({
+            "user_id": "",
+            "name": "",
+            "mobile_data": "",
+            "photo": nextProps.profile.photo,
+            "email": ""
+          }));
+          nextProps.dispatch(getProfile());
+          createNotification('success', nextProps.updateProfileInfoMessage);
+        } else {
+          nextProps.dispatch(changeProfileState(nextProps.profile));
+          createNotification('error', nextProps.updateProfileInfoMessage);
+        }
+      } else {
+        nextProps.dispatch(changeProfileState(nextProps.profile));
+        createNotification('error', nextProps.updateProfileInfoMessage);
+      }
+    }
 
-  handleChange = e => {
-    this.setState({
-      state: e.target.value
-    });
-  };
 
+    if (nextProps.updateProfilePhotoStatus !== "" && nextProps.updateProfilePhotoError !== "") {
+      if (nextProps.updateProfilePhotoStatus === 200) {
+        if (!nextProps.updateProfilePhotoError) {
+          nextProps.dispatch(changeProfileState({
+            "user_id": nextProps.profile.user_id,
+            "name": nextProps.profile.name,
+            "mobile_data": nextProps.profile.mobile_data,
+            "photo": "",
+            "email": nextProps.profile.email
+          }));
+          nextProps.dispatch(getProfile());
+          createNotification('success', nextProps.updateProfilePhotoMessage);
+        } else {
+          nextProps.dispatch(changeProfileState(nextProps.profile));
+          createNotification('error', nextProps.updateProfilePhotoMessage);
+        }
+      } else {
+        nextProps.dispatch(changeProfileState(nextProps.profile));
+        createNotification('error', nextProps.updateProfilePhotoMessage);
+      }
+    }
+  }
+  handleChange(e) {
+    const target = e.target;
+    checkValidation(e);
+    if (target.value === "") {
+      target.required = false;
+    } else {
+      target.required = true;
+      checkValidation(e);
+    }
+    this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {[target.name]: target.value})))
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+      const allElements = document.querySelectorAll(".profile-info-form .form-group input");
+      for (let i = 0; i < allElements.length; i++) {
+        if (allElements[i].value === "") {
+          allElements[i].required = false
+        } else {
+          allElements[i].required = true
+        }
+      }
+      if (e.target.checkValidity()) {
+        this.props.dispatch(updateProfileInfo({
+          id: localStorage.getItem("id"),
+          name: this.props.profile.name,
+          email: this.props.profile.email,
+          phone_no: this.props.profile.mobile_data
+        }));
+        // hit the api  to send the data......
+      } else {
+        const invalidInputs = document.querySelectorAll(".profile-info-form .form-group input:invalid");
+        for (let i = 0; i < invalidInputs.length; i++) {
+          invalidInputs[i].parentElement.classList.add("has-error");
+        }
+      }
+  }
   render() {
     const { classes, className, ...rest } = this.props;
-    const { firstName, lastName, phone, state, country, email } = this.state;
-
     const rootClassName = classNames(classes.root, className);
 
     return (
-      <Portlet
-        {...rest}
-        className={rootClassName}
-      >
-        <PortletHeader>
-          <PortletLabel
-            subtitle="The information can be edited"
-            title="Profile"
-          />
-        </PortletHeader>
-        <PortletContent noPadding>
-          <form
-            autoComplete="off"
-            noValidate
-          >
-            <div className={classes.field}>
-              <TextField
-                className={classes.textField}
-                helperText="Please specify the first name"
-                label="First name"
-                margin="dense"
-                required
-                value={firstName}
-                variant="outlined"
-              />
-              <TextField
-                className={classes.textField}
-                label="Last name"
-                margin="dense"
-                required
-                value={lastName}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.field}>
-              <TextField
-                className={classes.textField}
-                label="Email Address"
-                margin="dense"
-                required
-                value={email}
-                variant="outlined"
-              />
-              <TextField
-                className={classes.textField}
-                label="Phone Number"
-                margin="dense"
-                type="number"
-                value={phone}
-                variant="outlined"
-              />
-            </div>
-            <div className={classes.field}>
-              <TextField
-                className={classes.textField}
-                label="Select State"
-                margin="dense"
-                onChange={this.handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={state}
-                variant="outlined">
-                {states.map(option => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-              <TextField
-                className={classes.textField}
-                label="Country"
-                margin="dense"
-                required
-                value={country}
-                variant="outlined"
-              />
-            </div>
-          </form>
-        </PortletContent>
-        <PortletFooter className={classes.portletFooter}>
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Save details
-          </Button>
-        </PortletFooter>
-      </Portlet>
+            <Portlet
+                {...rest}
+                className={rootClassName}
+            >
+              <PortletHeader>
+                <PortletLabel
+                    subtitle="The information can be edited"
+                    title="Profile"
+                />
+              </PortletHeader>
+              <PortletContent noPadding>
+                <form
+                    autoComplete="off"
+                    className="profile-info-form" onSubmit={this.handleSubmit.bind(this)}
+                    noValidate={true}
+                >
+                  <div className={classes.field}>
+
+                    <div className="form-group">
+                      <Input type="text"
+                             name="user_id"
+                             value={this.props.user_id}
+                             required={false}
+                             disabled={true}
+                             className="form-control"/>
+                    </div>
+
+                    <div className="form-group">
+                      <Input type="text"
+                             id="name"
+                             name="name"
+                             value={this.props.name}
+                             onChange={this.handleChange.bind(this)}
+                             minLength={3}
+                             maxLength={50}
+                             pattern={"^[^-\\s]([a-zA-Z]+\\s)*[a-zA-Z]{2,}$"}
+                             required={false}
+                             className="form-control"
+                             placeholder="Name"/>
+                      <p className="with-error">Please enter last name (Min 3
+                        characters
+                        required, no white space allowed).</p>
+                    </div>
+
+
+                    <div className="form-group">
+                      <Input type="text"
+                             name="mobile_data"
+                             value={this.props.mobile_data}
+                             onChange={this.handleChange.bind(this)}
+                             pattern="[0-9]{10,10}"
+                             required={false}
+                             className="form-control"
+                             placeholder="Phone Number"/>
+                      <p className="with-error">Please enter valid Phone number.</p>
+                    </div>
+
+
+                    <div className="form-group">
+                      <Input type="email"
+                             name="email"
+                             value={this.props.email}
+                             onChange={this.handleChange.bind(this)}
+                             required={false}
+                             className="form-control"
+                             placeholder="Email Address"/>
+                      <p className="with-error">Please enter valid Email Address.</p>
+                    </div>
+                  </div>
+
+                <PortletFooter className={classes.portletFooter}>
+                  <button type="submit"
+                          className="btn btn-primary btn-block btn-flat">Update
+                    Profile
+                  </button>
+                </PortletFooter>
+                </form>
+              </PortletContent>
+            </Portlet>
     );
   }
 }
@@ -160,5 +196,38 @@ Account.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
-
-export default withStyles(styles)(Account);
+const mapStateToProps = (state) => {
+  const {
+    profile, getProfilePageLoading, getProfileStatus, getProfileError, getProfileMessage,
+    updateProfileInfoPageLoading,
+    updateProfileInfoStatus,
+    updateProfileInfoError,
+    updateProfileInfoMessage,
+    updateProfilePhotoPageLoading,
+    updateProfilePhotoStatus,
+    updateProfilePhotoError,
+    updateProfilePhotoMessage
+  } = state.profileReducer;
+  const {user_id, name, mobile_data, photo, email} = profile;
+  return {
+    profile,
+    user_id,
+    name,
+    mobile_data,
+    photo,
+    email,
+    getProfilePageLoading,
+    getProfileStatus,
+    getProfileError,
+    getProfileMessage,
+    updateProfileInfoPageLoading,
+    updateProfileInfoStatus,
+    updateProfileInfoError,
+    updateProfileInfoMessage,
+    updateProfilePhotoPageLoading,
+    updateProfilePhotoStatus,
+    updateProfilePhotoError,
+    updateProfilePhotoMessage
+  }
+};
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Account)))

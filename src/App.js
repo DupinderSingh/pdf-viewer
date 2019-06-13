@@ -7,7 +7,6 @@ import Login from './container/account/login';
 import {store} from '../src/index';
 import Footer from "./components/app/footer";
 import Sidebar from "./components/dashboard/sidebar";
-import Profile from './container/dashboard/profile';
 import {getProfile} from "./actions/dashboard/profile";
 import Account from './components/Account/index';
 
@@ -44,7 +43,6 @@ export function BodyWrapper(props) {
                     {/*<PageNavigationHeader/>*/}
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-                        <PrivateRoute exact path="/profile" component={Profile}/>
                         <PrivateRoute exact path="/profile-2" component={Account}/>
                         <Redirect from="*" to='/dashboard'/>
                     </Switch>

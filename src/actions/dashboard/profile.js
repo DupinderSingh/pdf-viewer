@@ -1,6 +1,5 @@
 import {
-    CHANGE_EDIT_STATE,
-    CHANGE_TEMP_PROFILE_STATE,
+    CHANGE_PROFILE_STATE,
     CLEAR_PROFILE_API_RESPONSE,
     GET_PROFILE_FAILURE,
     GET_PROFILE_REQUEST,
@@ -31,12 +30,8 @@ export function clearProfileApiResponse() {
     return {type: CLEAR_PROFILE_API_RESPONSE}
 }
 
-export function changeEditState(status) {
-    return {type: CHANGE_EDIT_STATE, status}
-}
-
-export function changeTempProfileState(newState) {
-    return {type: CHANGE_TEMP_PROFILE_STATE, newState}
+export function changeProfileState(newState) {
+    return {type: CHANGE_PROFILE_STATE, newState}
 }
 
 export function f() {
@@ -55,16 +50,27 @@ export function updateProfileInfo(body) {
     }
 }
 
-export function updateProfilePic(file) {
-    let formData = new FormData();
-    formData.append('image', file);
-    let status = "";
-    const config = {
-        method: "POST",
-        // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
-        body: formData
-    };
-    formData.append('id', localStorage.getItem("id"));
+export function updateProfilePic(file, removePic) {
+    let status = "", config = {};
+    if (removePic) {
+         config = {
+            method: "POST",
+            // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
+            body: JSON.stringify({type: false, id: localStorage.getItem("id")})
+        };
+    }
+    else {
+        let formData = new FormData();
+        formData.append('image', file);
+        formData.append('type', 'true');
+        formData.append('id', localStorage.getItem("id"));
+        config = {
+            method: "POST",
+            // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
+            body: formData
+        };
+        formData.append('id', localStorage.getItem("id"));
+    }
     return dispatch => {
         dispatch(updateProfilePhotoRequest());
         fetch(AUTH_API + '/updateProfilePhoto', config)
@@ -81,7 +87,7 @@ export function updateProfilePic(file) {
                 },
                 function () {
                     dispatch(updateProfilePhotoFailure({
-                        data: {message: "Error while updating resume", error: true},
+                        data: {message: removePic ? "Error while removing profile photo." : "Error while updating profile.", error: true},
                         status: 500
                     }))
                 })
@@ -100,3 +106,4 @@ export function updateProfilePhotoSuccess(response) {
 export function updateProfilePhotoFailure(response) {
     return {type: UPDATE_PROFILE_PHOTO_FAILURE, response}
 }
+http://git.iapplabz.co.in/devserver/pdf-viewer
