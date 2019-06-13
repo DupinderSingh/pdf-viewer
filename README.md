@@ -14,7 +14,7 @@ Below you will find some information on how to perform Installation and Setup ta
 ## Run App in Development mode
 **Clone this repository**
 ```
-git clone "project git link"
+git clone http://git.iapplabz.co.in/devserver/pdf-viewer
 ```
 
 **Install Dependency**
@@ -109,3 +109,4 @@ REACT_APP_GOOGLE_APP_ID
 ## Dependencies
 * React, React-DOM and React Redux
  See `package.json` for more Dependencies and packages Required.
+
