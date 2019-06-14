@@ -1,7 +1,7 @@
 export default theme => ({
   root: {},
   details: {
-    display: 'flex'
+    display: 'block'
   },
   info: {},
   locationText: {

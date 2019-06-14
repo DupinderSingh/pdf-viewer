@@ -56,13 +56,13 @@ export function updateProfilePic(file, removePic) {
          config = {
             method: "POST",
             // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
-            body: JSON.stringify({type: false, id: localStorage.getItem("id")})
+            body: JSON.stringify({type: 2, id: localStorage.getItem("id")})
         };
     }
     else {
         let formData = new FormData();
         formData.append('image', file);
-        formData.append('type', 'true');
+        formData.append('type', '1');
         formData.append('id', localStorage.getItem("id"));
         config = {
             method: "POST",

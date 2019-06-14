@@ -21130,7 +21130,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.ad
     padding: 10px 25px 5px 25px!important;
     line-height: 22px !important;
     color: #fff !important;
-    font-weight: 200 !important;
+    font-weight: 500 !important;
     margin-right: 30px;
     border-radius: 4px;
 }
@@ -21140,7 +21140,7 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.ad
     background-color: #d83946 !important;
     color: #fff !important;
     padding: 4px 25px 8px 25px!important;
-    font-weight: 600;
+    font-weight: 500 !important;;
     font-size: 22px;
     margin-top: 10px;
     border: 1px solid #d83846;
@@ -21234,4 +21234,13 @@ button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButt
 
 .PortletFooter-root-418 label{
     font-weight: 500 !important;
+}
+.back-button-outer, .refresh-button-outer {
+         float: right;
+     }
+
+.AccountProfile-details-327 {
+    display: flex !important;
+    flex-wrap: wrap !important;;
+    justify-content: space-between !important;;
 }

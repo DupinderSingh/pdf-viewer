@@ -3,16 +3,11 @@ import {withRouter} from 'react-router-dom';
 // Externals
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
 // Material helpers
-import {withStyles} from '@material-ui/core';
-
 // Material components
-import {Typography, Button, LinearProgress} from '@material-ui/core';
-
+import {LinearProgress, Typography, withStyles} from '@material-ui/core';
 // Shared components
 import {Portlet, PortletContent, PortletFooter} from '../../../../components';
-
 // Component styles
 import styles from './styles';
 import {checkValidation} from "../../../../actions/app";
@@ -21,6 +16,13 @@ import createNotification from "../../../app/notification";
 import {connect} from "react-redux";
 
 class AccountProfile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            profile: 0
+        }
+    }
+
     uploadPic(e, removePic) {
         e.preventDefault();
         const target = e.target;
@@ -45,6 +47,24 @@ class AccountProfile extends Component {
         }
     }
 
+    // componentWillReceiveProps(nextProps, nextContext) {
+    //     if (!nextProps.getProfilePageLoading && nextProps.getProfileStatus === 200 && !nextProps.getProfileError) {
+    //         this.setState({profile: 0});
+    //         if (!!nextProps.profile.email) {
+    //             this.setState({profile: this.state.profile + 20});
+    //         }
+    //         if (!!nextProps.profile.name) {
+    //             this.setState({profile: this.state.profile + 20});
+    //         }
+    //         if (!!nextProps.profile.mobile_data) {
+    //             this.setState({profile: this.state.profile + 20});
+    //         }
+    //         if (!!nextProps.profile.photo) {
+    //             this.setState({profile: this.state.profile + 20});
+    //         }
+    //     }
+    // }
+
     render() {
         const {classes, className, ...rest} = this.props;
 
@@ -57,7 +77,7 @@ class AccountProfile extends Component {
             >
                 <PortletContent>
                     <div className={classes.details}>
-                        <div className={classes.info}>
+                        <div className={classes.info} style={{width: '50%', float: 'left'}}>
                             <Typography variant="h2">{this.props.profile.name}</Typography>
                             <Typography
                                 className={classes.locationText}
@@ -81,16 +101,22 @@ class AccountProfile extends Component {
 
                             <img
                                 className="img-circle"
-                                style={{cursor: "pointer", maxWidth: "110px", borderRadius: "100%"}}
+                                style={{
+                                    cursor: "pointer",
+                                    maxWidth: "110px",
+                                    borderRadius: "100%",
+                                    height: "100px",
+                                    width: "100px"
+                                }}
                                 src={!!this.props.profile.photo ? this.props.profile.photo : require("../../../../images/avatar.png")}
                                 onError={() => this.src = require("../../../../images/avatar.png")}
                                 alt="User"/>
 
                         </div>
                         <div className={classes.progressWrapper}>
-                            <Typography variant="body1">Profile Completeness: 70%</Typography>
+                            <Typography variant="body1">Profile Completeness: {this.state.profile}%</Typography>
                             <LinearProgress
-                                value={70}
+                                value={this.state.profile}
                                 variant="determinate"
                             />
                         </div>
