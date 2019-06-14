@@ -6,8 +6,8 @@ import 'react-viewer/dist/index.css';
 import 'react-image-lightbox/style.css';
 import {displayImage, getPdfFolderStructure, updateFile} from "../../actions/dashboard";
 import Error from "../app/error";
-import Spinner from "../../components/app/spinner";
 import PreviewFileDialogBox from "../dashboard/preview-file-dialog";
+import Loader from "../app/spinner/loader";
 
 class FolderFile extends Component {
     componentDidMount() {
@@ -31,6 +31,11 @@ class FolderFile extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.searchTemplate !== nextProps.searchTemplate) {
             nextProps.dispatch(getPdfFolderStructure(false, "document/" + localStorage.getItem("id"), true, nextProps.searchTemplate))
+        }
+        if (!this.props.getPdfFolderStructurePageLoading) {
+            if (((!this.props.getPdfFolderStructurePageLoading) && (this.props.getPdfFolderStructureStatus === 200) && (!this.props.getPdfFolderStructureError))) {
+                document.getElementsByClassName("my-content")[0].scrollTo(0, 0);
+            }
         }
     }
 
@@ -60,128 +65,34 @@ class FolderFile extends Component {
             <div className="row" style={{marginTop: "20px"}}>
                 {
                     this.props.getPdfFolderStructurePageLoading &&
-                    <Spinner isPageLoading={true}/>
+                    <div className="folder-file-loading">
+                        <Loader isPageLoading={true}/>
+                    </div>
                 }
                 {
                     ((!this.props.getPdfFolderStructurePageLoading) && (this.props.getPdfFolderStructureStatus === 200) && (!this.props.getPdfFolderStructureError)) &&
                     <div className="folder-file">
                         <div className="card-body">
                             <div className="row">
-
                                 <div className="col-md-12 folder-file-outer">
-                                    <div className="files-folders-title"><h2>Documents <i style={{cursor: "pointer"}}
-                                                                                          onClick={this.refreshDocuments.bind(this)}
-                                                                                          className="fa fa-refresh"/>
-                                    </h2></div>
-                                    <div className="col-md-10 files-folders-outer">
+                                    <div className="col-md-9 files-folders-title">
+                                        <h2>Documents
+                                        </h2>
+                                    </div>
+                                    <div className="col-md-1 refresh-button-outer">
                                         {
-                                            this.props.directory.length > 0 &&
-                                            this.props.directory.map((structure, index) => (
-                                                <div key={index} className="files-folders">
-                                                    <div className="folder-file-display-outer">
-                                                        {
-                                                            structure.type === "folder" &&
-                                                            (
-                                                                !!structure.value.split(".")[(structure.value.split(".")).length - 1]
-                                                                    ?
-                                                                    (
-                                                                        (
-                                                                            structure.value.split(".")[(structure.value.split(".")).length - 1] === "png" ||
-                                                                            structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpg" ||
-                                                                            structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpeg" ||
-                                                                            structure.value.split(".")[(structure.value.split(".")).length - 1] === "pdf"
-                                                                        ) ?
-                                                                            (
-                                                                                <img
-                                                                                    className="folder-file-display-image"
-                                                                                    src={structure.value}
-                                                                                    onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
-                                                                                    onError={() => (this.src = require("../../images/corrupt-folder.png"))}
-                                                                                    alt={"folder pic"}
-                                                                                />
-                                                                            )
-                                                                            :
-                                                                            (
-                                                                                <img
-                                                                                    className="folder-file-display-image"
-                                                                                    src={require("../../images/folder.png")}
-                                                                                    onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
 
-                                                                                    alt={"folder pic"}
-                                                                                />
-                                                                            )
-
-                                                                    )
-                                                                    :
-                                                                    (
-                                                                        <img className="folder-file-display-image"
-                                                                             src={require("../../images/folder.png")}
-                                                                             onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
-
-                                                                             alt={"folder pic"}
-                                                                        />
-                                                                    )
-                                                            )
-                                                        }
-                                                        {
-                                                            structure.type === "file" &&
-                                                            (
-                                                                structure.value.split(".")[structure.value.split(".").length - 1] === "pdf"
-                                                                    ?
-                                                                    (
-                                                                        <a href={structure.value}
-                                                                           className="folder-file-display-image"
-                                                                           target="_blank" rel="noopener noreferrer">
-                                                                            <img className="folder-file-display-image"
-                                                                                 src={require("../../images/pdf.png")}
-                                                                                 onError={() => (this.src = require("../../images/corrupt-file.png"))}
-                                                                                 alt={"file pic"}
-                                                                            />
-                                                                        </a>
-                                                                    )
-                                                                    :
-                                                                    (
-                                                                        <img
-                                                                            className="folder-file-display-image"
-                                                                            src={structure.value}
-                                                                            onClick={() => this.updateImageVisible(true, structure.value.split(".")[structure.value.split(".").length - 1], structure.value)}
-                                                                            onError={() => (this.src = require("../../images/corrupt-file.png"))}
-                                                                            data-toggle="filePreviewModal"
-                                                                            data-target="#previewFile"
-                                                                            data-backdrop={false}
-                                                                            alt={"file pic"}
-                                                                        />
-                                                                    )
-                                                            )
-                                                        }
-                                                    </div>
-                                                    <h5 className="card-title">{structure["type"] === "folder" ?
-                                                        (!!structure.value.split(".")[(structure.value.split(".")).length - 1] && (
-                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "png" ||
-                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpg" ||
-                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpeg" ||
-                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "pdf")
-                                                        ) ? structure["fileFolderName"] : structure["value"]
-                                                        :
-                                                        (!!(structure["value"].split(".")[structure["value"].split(".").length - 1]) && !!(structure["value"].split(".")[structure["value"].split(".").length - 2]) ? ((structure["value"].split(".")[structure["value"].split(".").length - 2]).includes("/") ? (structure["value"].split(".")[structure["value"].split(".").length - 2]).split("/")[(structure["value"].split(".")[structure["value"].split(".").length - 2]).split("/").length - 1] : (structure["value"].split(".")[structure["value"].split(".").length - 2])) + "." + structure["value"].split(".")[structure["value"].split(".").length - 1] : "")}</h5>
-                                                </div>
-                                            ))
-                                        }
-                                        {
-                                            this.props.directory.length === 0 &&
-
-                                            <div className="files-folders" style={{cursor: "default"}}>
-                                                <div className="folder-file-display-outer" style={{cursor: "default"}}>
-                                                    <img className="folder-file-display-image"
-                                                         src={require("../../images/empty.png")}
-                                                         alt={"folder pic"}
-                                                         style={{cursor: "default"}}
-                                                    />
-                                                </div>
-                                            </div>
+                                            <span className="btn-group-lg">
+                                                          <button type="button"
+                                                                  style={{cursor: "pointer"}}
+                                                                  onClick={this.refreshDocuments.bind(this)}
+                                                                  className="btn btn-danger bmd-btn-fab">
+                                                            <i className="fa fa-refresh"></i>
+                                                          </button>
+                                                        </span>
                                         }
                                     </div>
-                                    <div className="col-md-2 next-back-button-outer">
+                                    <div className="col-md-1 back-button-outer">
                                         {
                                             this.props.back &&
                                             <span className="btn-group-lg">
@@ -192,6 +103,121 @@ class FolderFile extends Component {
                                                           </button>
                                                         </span>
                                         }
+                                    </div>
+
+                                    <div className="col-md-12 my-content">
+                                        <div className="col-md-10 files-folders-outer">
+                                            {
+                                                this.props.directory.length > 0 &&
+                                                this.props.directory.map((structure, index) => (
+                                                    <div key={index} className="files-folders">
+                                                        <div className="folder-file-display-outer">
+                                                            {
+                                                                structure.type === "folder" &&
+                                                                (
+                                                                    !!structure.value.split(".")[(structure.value.split(".")).length - 1]
+                                                                        ?
+                                                                        (
+                                                                            (
+                                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "png" ||
+                                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpg" ||
+                                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpeg" ||
+                                                                                structure.value.split(".")[(structure.value.split(".")).length - 1] === "pdf"
+                                                                            ) ?
+                                                                                (
+                                                                                    <img
+                                                                                        className="folder-file-display-image"
+                                                                                        src={structure.value}
+                                                                                        onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
+                                                                                        onError={() => (this.src = require("../../images/corrupt-folder.png"))}
+                                                                                        alt={"folder pic"}
+                                                                                    />
+                                                                                )
+                                                                                :
+                                                                                (
+                                                                                    <img
+                                                                                        className="folder-file-display-image"
+                                                                                        src={require("../../images/folder.png")}
+                                                                                        onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
+
+                                                                                        alt={"folder pic"}
+                                                                                    />
+                                                                                )
+
+                                                                        )
+                                                                        :
+                                                                        (
+                                                                            <img className="folder-file-display-image"
+                                                                                 src={require("../../images/folder.png")}
+                                                                                 onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
+
+                                                                                 alt={"folder pic"}
+                                                                            />
+                                                                        )
+                                                                )
+                                                            }
+                                                            {
+                                                                structure.type === "file" &&
+                                                                (
+                                                                    structure.value.split(".")[structure.value.split(".").length - 1] === "pdf"
+                                                                        ?
+                                                                        (
+                                                                            <a href={structure.value}
+                                                                               className="folder-file-display-image"
+                                                                               target="_blank"
+                                                                               rel="noopener noreferrer">
+                                                                                <img
+                                                                                    className="folder-file-display-image"
+                                                                                    src={require("../../images/pdf.png")}
+                                                                                    onError={() => (this.src = require("../../images/corrupt-file.png"))}
+                                                                                    alt={"file pic"}
+                                                                                />
+                                                                            </a>
+                                                                        )
+                                                                        :
+                                                                        (
+                                                                            <img
+                                                                                className="folder-file-display-image"
+                                                                                src={structure.value}
+                                                                                onClick={() => this.updateImageVisible(true, structure.value.split(".")[structure.value.split(".").length - 1], structure.value)}
+                                                                                onError={() => (this.src = require("../../images/corrupt-file.png"))}
+                                                                                data-toggle="filePreviewModal"
+                                                                                data-target="#previewFile"
+                                                                                data-backdrop={false}
+                                                                                alt={"file pic"}
+                                                                            />
+                                                                        )
+                                                                )
+                                                            }
+                                                        </div>
+                                                        <h5 className="card-title">{structure["type"] === "folder" ?
+                                                            (!!structure.value.split(".")[(structure.value.split(".")).length - 1] && (
+                                                                    structure.value.split(".")[(structure.value.split(".")).length - 1] === "png" ||
+                                                                    structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpg" ||
+                                                                    structure.value.split(".")[(structure.value.split(".")).length - 1] === "jpeg" ||
+                                                                    structure.value.split(".")[(structure.value.split(".")).length - 1] === "pdf")
+                                                            ) ? structure["fileFolderName"] : structure["value"]
+                                                            :
+                                                            (!!(structure["value"].split(".")[structure["value"].split(".").length - 1]) && !!(structure["value"].split(".")[structure["value"].split(".").length - 2]) ? ((structure["value"].split(".")[structure["value"].split(".").length - 2]).includes("/") ? (structure["value"].split(".")[structure["value"].split(".").length - 2]).split("/")[(structure["value"].split(".")[structure["value"].split(".").length - 2]).split("/").length - 1] : (structure["value"].split(".")[structure["value"].split(".").length - 2])) + "." + structure["value"].split(".")[structure["value"].split(".").length - 1] : "")}</h5>
+                                                    </div>
+                                                ))
+                                            }
+                                            {
+                                                this.props.directory.length === 0 &&
+
+                                                <div className="files-folders" style={{cursor: "default"}}>
+                                                    <div className="folder-file-display-outer"
+                                                         style={{cursor: "default"}}>
+                                                        <img className="folder-file-display-image"
+                                                             src={require("../../images/empty.png")}
+                                                             alt={"folder pic"}
+                                                             style={{cursor: "default"}}
+                                                        />
+
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -14,7 +14,7 @@ import {
 import createNotification from '../../components/app/notification';
 import PhoneNumberForm from "../../components/account/login/phone-number-form";
 import VerifyOtpForm from "../../components/account/login/verify-otp";
-import Spinner from "../../components/app/spinner";
+import Spinner from "../../components/app/spinner/spinner";
 import {authApi} from '../../actions/app/index';
 import Facebook from "../../components/account/login/facebook";
 import Google from "../../components/account/login/google";

@@ -14,6 +14,7 @@ import { Dashboard as DashboardLayout } from '../../layouts';
 import { AccountProfile, AccountDetails } from './components';
 import {clearProfileApiResponse, getProfile} from "../../actions/dashboard/profile";
 import Error from "../app/error";
+import Loader from "../app/spinner/loader";
 
 // Component styles
 const styles = theme => ({
@@ -33,6 +34,12 @@ class Account extends Component {
     return (
       <DashboardLayout title="Account">
         <div className={this.props.classes.root}>
+          {
+            (this.props.getProfilePageLoading || this.props.updateProfileInfoPageLoading || this.props.updateProfilePhotoPageLoading) &&
+            <div className="profile-loading">
+              <Loader isPageLoading={true}/>
+            </div>
+          }
           {
             (!this.props.getProfilePageLoading && this.props.getProfileStatus === 200 && !this.props.getProfileError) &&
             <Grid

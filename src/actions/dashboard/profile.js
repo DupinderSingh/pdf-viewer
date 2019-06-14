@@ -106,4 +106,3 @@ export function updateProfilePhotoSuccess(response) {
 export function updateProfilePhotoFailure(response) {
     return {type: UPDATE_PROFILE_PHOTO_FAILURE, response}
 }
-http://git.iapplabz.co.in/devserver/pdf-viewer

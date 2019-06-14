@@ -9,6 +9,7 @@ class UploadTemplate extends Component {
     componentWillMount() {
         this.props.dispatch(clearFileFolderData());
     }
+
     render() {
         return (
             <section className="content">

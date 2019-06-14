@@ -43,7 +43,7 @@ export function BodyWrapper(props) {
                     {/*<PageNavigationHeader/>*/}
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-                        <PrivateRoute exact path="/profile-2" component={Account}/>
+                        <PrivateRoute exact path="/profile" component={Account}/>
                         <Redirect from="*" to='/dashboard'/>
                     </Switch>
                 </div>

@@ -19616,7 +19616,7 @@ not(._1_aq3twh-9n_RGqZbCQUhB
 
 @media (-moz-touch-enabled: 1),
 (pointer: coarse) {
-    ._3nCjPduPlHgcLxjIVxN3kZ: hover .Oyz1bDZjj5wXATSc9-6tj {
+    ._3nCjPduPlHgcLxjIVxN3kZ:hover .Oyz1bDZjj5wXATSc9-6tj {
         -webkit-transform: none
     }
 
@@ -20760,10 +20760,6 @@ div.google button {
     color: white;
 }
 
-div.google button:hover {
-    opacity: 0 !important;
-}
-
 div.google {
     margin-top: 10px;
 }
@@ -20845,9 +20841,6 @@ img.folder-file-display-image {
 img.folder-file-display-image:hover {
     cursor: pointer
 }
-span.btn-group-lg {
-    margin: 5px
-}
 button.btn.btn-danger.bmd-btn-fab {
     border-radius: 30px
 }
@@ -20900,10 +20893,7 @@ img.file-image-inner {
     background-color: #d83a46 !important;
     border-color: #d83a46 !important;
 }
-btn-primary:hover, btn-primary:active, btn-primary:focus {
-    background-color: #e44753 !important;
-    border-color: #e44753 !important;
-}
+
 .form-control:focus {
     border-color: #a09191 !important;
 }
@@ -21108,15 +21098,16 @@ text-align: center;
 }
 
 .profile-info-form .btn {
-  font-size: 18px !important;
-  border-radius: 5px !important
+    font-size: 16px !important;
+    border-radius: 4px !important;
+    line-height: 28px;
 }
 .profile-info-form .form-group input{
-  font-size: 18px !important;
+  /*font-size: 18px !important;*/
   /* border-bottom: 1px solid #0000004a !important; */
-  color: #000 !important;
-  height: 45px;
-  border: none;
+  /*color: #000 !important;*/
+  height: 40px;
+  /*border: none;*/
 }
 .login-box-body .card {
     height: 100% !important;
@@ -21129,4 +21120,118 @@ text-align: center;
 }
 .Account-portletFooter-713 {
     width: 40% !important;
+}
+
+/* profile-2 css starts*/
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.add-blue {
+    background: #4255b6 !important;
+    border: 1px solid #3f52b5 !important;
+    padding: 10px 25px 5px 25px!important;
+    line-height: 22px !important;
+    color: #fff !important;
+    font-weight: 200 !important;
+    margin-right: 30px;
+    border-radius: 4px;
+}
+
+
+.MuiButton-text.remove-red {
+    background-color: #d83946 !important;
+    color: #fff !important;
+    padding: 4px 25px 8px 25px!important;
+    font-weight: 600;
+    font-size: 22px;
+    margin-top: 10px;
+    border: 1px solid #d83846;
+    border-radius: 4px;
+}
+
+.MuiTypography-body1, .MuiTypography-subtitle2 {
+    font-size: 13px !important;
+}
+
+.MuiTypography-h5 {
+    font-size: 16px !important;
+}
+
+.WithWidth\(Dashboard\)-content-6 {
+    background-color: #fafafa;
+    height: 100vh;
+}
+
+.sidebar-menu li>a span {
+    font-size: 16px;
+}
+
+.logout-outer {
+    font-size: 36px;
+}
+
+/* profile-2 css ends*/
+
+/* dashboard css starts*/
+
+
+.MuiTypography-h2 {
+    font-size: 16px !important;
+    word-break: break-word !important;
+}
+
+/*button.btn.btn-primary.btn-block.btn-flat:hover {*/
+/*    background-color: transparent !important;*/
+/*    color: #d83946 !important;*/
+/*    border: 1px solid #d83946 !important;*/
+/*    transition: .8s !important;*/
+/*}*/
+.login-card-body .btn-primary {
+    border-radius: 4px !important;
+    line-height: 24px !important;
+    font-size: 16px !important;
+}
+
+div.google a, div.google {
+    border-radius: 4px !important;
+    font-size: 16px !important;
+}
+
+MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault img{
+    max-width: 110px !important;
+
+}
+.YXpgCrxt3SsvR7HRLebVh {
+    height: 400px !important;
+}
+
+button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButton-text.MuiButton-textPrimary .blue-butn{
+    padding: 10px 25px !important;
+    margin: 0 !important;
+}
+/* dashboard css ends*/
+
+
+btn-primary:hover, btn-primary:active, btn-primary:focus, div.google button:hover , div.fb button:hover {
+    background-color: #e44753 !important;
+    border-color: #e44753 !important;
+}
+
+.col-md-12.my-content {
+    overflow: hidden;
+    max-height: calc(100vh - 570px);
+    min-height: 200px;
+}
+.col-md-12.my-content:hover {
+    overflow-y: auto;
+}
+.content-wrapper main {
+    margin-left: 0px !important;
+    margin-top: 0px !important;
+    height: 100vh !important;
+}
+button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButton-text.MuiButton-textPrimary:hover {
+    background-color: #4155b6 !important;
+}
+
+.PortletFooter-root-418 label{
+    font-weight: 500 !important;
 }
