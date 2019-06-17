@@ -1,4 +1,7 @@
 import history from '../../index';
+import {authApi as auth} from '../app/index';
+import {logout} from "../account";
+const AUTH_API = auth();
 
 export function forwardTo(location) {
     history.push(location)
@@ -27,3 +30,27 @@ export function checkValidation(e) {
 export function authApi() {
     return process.env.REACT_APP_AUTH_API
 }
+
+export function refreshId() {
+    let status;
+    const config = {
+        method: "GET",
+        // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}
+    };
+    return dispatch => {
+        fetch(AUTH_API + '/refresh-api?id='+localStorage.getItem("id"), config)
+            .then(function (res) {
+                status = res.status;
+                return res.json()
+            })
+            .then(function (res) {
+                    if (res.error) {
+                        dispatch(logout());
+                    }
+                },
+                function () {
+                    dispatch(logout());
+                });
+    }
+}
+

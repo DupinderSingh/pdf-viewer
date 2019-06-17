@@ -1,3 +1,5 @@
+import {LOGOUT_SUCCESS} from "../../types/account";
+
 let Symbol = require('es6-symbol');
 
 function postApi(endpoint, body) {
@@ -54,6 +56,12 @@ export default store => next => action => {
     return (next({type: requestType}),
         postApi(endpoint, body).then(
             response => {
+                if (response.status === 401) {
+                    return next({
+                        response,
+                        type: LOGOUT_SUCCESS
+                    })
+                }
                 if (response.status === 200) {
                     return next({
                         response,

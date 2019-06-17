@@ -1,3 +1,5 @@
+import {LOGOUT_SUCCESS} from "../../types/account";
+
 /**
  * Created by Dupnder on 29/05/19.
  */
@@ -53,6 +55,12 @@ export default store => next => action => {
     const [requestType, successType, errorType] = types;
     return (next({type: requestType}), getApi(endpoint, token).then(
         response => {
+            if (response.status === 401) {
+                return next({
+                    response,
+                    type: LOGOUT_SUCCESS
+                })
+            }
             if (response.status === 200) {
                 return next({
                     response,

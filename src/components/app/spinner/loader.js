@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { SyncLoader } from 'react-spinners';
+import { PropagateLoader } from 'react-spinners';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
@@ -7,15 +7,15 @@ class Loader extends Component{
     render() {
         return(
             <div className='sweet-loading'>
-                <SyncLoader
+                <PropagateLoader
                     css=''
                     sizeUnit={"px"}
-                    size={150}
+                    size={17}
                     color={'#d83a46'}
                     heightUnit='px'
                     widthUnit='%'
-                    height={4}
-                    width={100}
+                    height={1}
+                    width={200}
                     loading={this.props.isPageLoading}
                 />
             </div>

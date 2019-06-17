@@ -12,7 +12,7 @@ import {Portlet, PortletContent, PortletFooter} from '../../../../components';
 import styles from './styles';
 import {checkValidation} from "../../../../actions/app";
 import {changeProfileState, updateProfilePic} from "../../../../actions/dashboard/profile";
-import createNotification from "../../../app/notification";
+import createNotification from "../../../../components/app/notification";
 import {connect} from "react-redux";
 
 class AccountProfile extends Component {

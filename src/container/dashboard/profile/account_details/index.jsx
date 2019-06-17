@@ -12,7 +12,7 @@ import {
   PortletFooter
 } from '../../../../components';
 import styles from './styles';
-import Input from "../../../app/input";
+import Input from "../../../../components/app/input";
 import {
   changeProfileState,
   getProfile,
@@ -21,7 +21,7 @@ import {
 import {checkValidation} from "../../../../actions/app";
 import createNotification from "../../../../components/app/notification";
 
-class Account extends Component {
+class AccountDetails extends Component {
   componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.updateProfileInfoStatus !== "" && nextProps.updateProfileInfoError !== "") {
       if (nextProps.updateProfileInfoStatus === 200) {
@@ -192,7 +192,7 @@ class Account extends Component {
   }
 }
 
-Account.propTypes = {
+AccountDetails.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired
 };
@@ -230,4 +230,4 @@ const mapStateToProps = (state) => {
     updateProfilePhotoMessage
   }
 };
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Account)))
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(AccountDetails)))

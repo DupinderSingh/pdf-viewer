@@ -8,7 +8,10 @@ import {store} from '../src/index';
 import Footer from "./components/app/footer";
 import Sidebar from "./components/dashboard/sidebar";
 import {getProfile} from "./actions/dashboard/profile";
-import Account from './components/Account/index';
+import MyAccount from './container/dashboard/profile/index';
+import {refreshId} from "./actions/app";
+
+let isAuthanticated = false;
 
 function checkAuth() {
     const {auth} = store.getState().accountReducer;
@@ -43,7 +46,7 @@ export function BodyWrapper(props) {
                     {/*<PageNavigationHeader/>*/}
                     <Switch>
                         <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-                        <PrivateRoute exact path="/profile" component={Account}/>
+                        <PrivateRoute exact path="/profile" component={MyAccount}/>
                         <Redirect from="*" to='/dashboard'/>
                     </Switch>
                 </div>
@@ -54,22 +57,35 @@ export function BodyWrapper(props) {
 
 class RouteComponent extends Component {
     componentDidMount() {
-        if (this.props.isAuthenticated && this.props.location.pathname !== "/profile") {
+        const props = this.props;
+        isAuthanticated = props.isAuthenticated;
+        let refresh_interval = null;
+        console.log(isAuthanticated, typeof(isAuthanticated), "authenticated");
+        refresh_interval = setInterval(function () {
+            if (isAuthanticated) {
+                props.dispatch(refreshId())
+            }
+        }, 900000);
+
+
+        if (
+            this.props.isAuthenticated &&
+            this.props.location.pathname !== "/profile") {
             this.props.dispatch(getProfile())
         }
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.isAuthenticated !== nextProps.isAuthenticated) {
+            isAuthanticated = nextProps.isAuthenticated;
             if (nextProps.isAuthenticated) {
-              nextProps.dispatch(getProfile())
+                nextProps.dispatch(getProfile())
             }
         }
     }
 
     render() {
         return (
-
             <div>
                 <Switch>
                     <ProtectedRoute exact path="/login" component={Login}/>
