@@ -46,6 +46,7 @@ class AccountProfile extends Component {
             }
         }
     }
+
     componentDidMount() {
         if (!this.props.getProfilePageLoading && this.props.getProfileStatus === 200 && !this.props.getProfileError && !this.props.edit) {
             this.setState({profile: 0});
@@ -102,15 +103,12 @@ class AccountProfile extends Component {
                             <Typography variant="h2">{this.props.profile.name}</Typography>
                             <Typography
                                 className={classes.locationText}
-                                variant="body1"
-                            >
-                                Rm. Valcea, Romania
+                                variant="body1">{this.props.profile.email}
                             </Typography>
                             <Typography
                                 className={classes.dateText}
                                 variant="body1"
                             >
-                                4:32PM (GMT-4)
                             </Typography>
                         </div>
                         {/*<Avatar*/}
@@ -118,7 +116,7 @@ class AccountProfile extends Component {
                         {/*    src={this.props.profile.photo}*/}
                         {/*/>*/}
 
-                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault">
+                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefaul t">
 
                             <img
                                 className="img-circle"
@@ -145,9 +143,10 @@ class AccountProfile extends Component {
                 </PortletContent>
                 <PortletFooter>
                     <button
+                        style={{cursor: "pointer"}}
                         className="MuiButtonBase-root MuiButton-root AccountProfile-uploadButton-363 MuiButton-text MuiButton-textPrimary add-blue"
-                        tabIndex="0" type="button"><span className="MuiButton-label"><span
-                        className="MuiButton-label"><label htmlFor="photo"
+                        tabIndex="0" type="button"><span style={{cursor: "pointer"}} className="MuiButton-label"><span
+                        className="MuiButton-label"><label style={{cursor: "pointer"}} htmlFor="photo"
                                                            className="blue-butn">Upload picture</label>
                         <input type="file" id="photo" name="photo"
                                style={{display: "none", cursor: "pointer"}}
