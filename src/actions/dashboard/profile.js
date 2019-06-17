@@ -34,12 +34,6 @@ export function changeProfileState(newState) {
     return {type: CHANGE_PROFILE_STATE, newState}
 }
 
-export function f() {
-    /*
-    * check the condition everytime there is click as well as not click
-    * when clicked storing the current elements as well as check the status
-    * */
-}
 export function updateProfileInfo(body) {
     return {
         [CALL_POST_API]: {
@@ -51,46 +45,49 @@ export function updateProfileInfo(body) {
 }
 
 export function updateProfilePic(file, removePic) {
-    let status = "", config = {};
     if (removePic) {
-         config = {
-            method: "POST",
-            // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
-            body: JSON.stringify({type: 2, id: localStorage.getItem("id")})
-        };
-    }
-    else {
+        return {
+            [CALL_POST_API]: {
+                endpoint: AUTH_API + '/removeProfilePhoto',
+                types: [UPDATE_PROFILE_INFO_REQUEST, UPDATE_PROFILE_INFO_SUCCESS, UPDATE_PROFILE_INFO_FAILURE],
+                body: {id: localStorage.getItem("id")}
+            }
+        }
+    } else {
+        let status = "", config = {};
         let formData = new FormData();
         formData.append('image', file);
         formData.append('type', '1');
-        formData.append('id', localStorage.getItem("id"));
         config = {
             method: "POST",
             // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
             body: formData
         };
         formData.append('id', localStorage.getItem("id"));
-    }
-    return dispatch => {
-        dispatch(updateProfilePhotoRequest());
-        fetch(AUTH_API + '/updateProfilePhoto', config)
-            .then(function (res) {
-                status = res.status;
-                return res.json()
-            })
-            .then(function (res) {
-                    if (status === 200 && !res.error) {
-                        dispatch(updateProfilePhotoSuccess({data: {error: false, message: res.message}, status: 200}));
-                    } else {
-                        dispatch(updateProfilePhotoFailure({data: {error: true, message: res.message}, status: status}))
-                    }
-                },
-                function () {
-                    dispatch(updateProfilePhotoFailure({
-                        data: {message: removePic ? "Error while removing profile photo." : "Error while updating profile.", error: true},
-                        status: 500
-                    }))
+        return dispatch => {
+            dispatch(updateProfilePhotoRequest());
+            fetch(AUTH_API + '/updateProfilePhoto', config)
+                .then(function (res) {
+                    status = res.status;
+                    return res.json()
                 })
+                .then(function (res) {
+                        if (status === 200 && !res.error) {
+                            dispatch(updateProfilePhotoSuccess({data: {error: false, message: res.message}, status: 200}));
+                        } else {
+                            dispatch(updateProfilePhotoFailure({data: {error: true, message: res.message}, status: status}))
+                        }
+                    },
+                    function () {
+                        dispatch(updateProfilePhotoFailure({
+                            data: {
+                                message: removePic ? "Error while removing profile photo." : "Error while updating profile.",
+                                error: true
+                            },
+                            status: 500
+                        }))
+                    })
+        }
     }
 }
 

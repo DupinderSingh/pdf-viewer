@@ -41,7 +41,7 @@ class Account extends Component {
             </div>
           }
           {
-            (!this.props.getProfilePageLoading && this.props.getProfileStatus === 200 && !this.props.getProfileError) &&
+            (this.props.getProfileStatus === 200 && !this.props.getProfileError) &&
             <Grid
                 container
                 spacing={4}

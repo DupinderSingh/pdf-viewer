@@ -67,7 +67,10 @@ class Sidebar extends Component {
                                     this.props.profile.name
                                 }
                             </p>
-                            <a href="#">dupinder.1232x@gmail.com</a>
+                            <a href="#">{
+                                (!this.props.getProfilePageLoading && this.props.getProfileStatus === 200 && !this.props.getProfileError) &&
+                                this.props.profile.email
+                            }</a>
                         </div>
                     </div>
 

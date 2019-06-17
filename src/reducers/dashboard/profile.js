@@ -27,7 +27,8 @@ const initialState = {
     updateProfilePhotoPageLoading: false,
     updateProfilePhotoStatus: "",
     updateProfilePhotoError: "",
-    updateProfilePhotoMessage: ""
+    updateProfilePhotoMessage: "",
+    edit: false
 };
 
 export default function profileReducer(state = initialState, action) {
@@ -49,7 +50,8 @@ export default function profileReducer(state = initialState, action) {
                     getProfileStatus: 200,
                     getProfileError: false,
                     profile: action.response.data.profile,
-                    getProfileMessage: ""
+                    getProfileMessage: "",
+                    edit: false
                 });
             } else {
                 return Object.assign({}, state, {
@@ -94,7 +96,8 @@ export default function profileReducer(state = initialState, action) {
                     "mobile_data": "",
                     "photo": "",
                     "email": ""
-                }
+                },
+                edit: false
             });
         case CHANGE_PROFILE_STATE:
             return Object.assign({}, state, {
@@ -104,7 +107,8 @@ export default function profileReducer(state = initialState, action) {
                 updateProfileInfoMessage: "",
                 updateProfilePhotoStatus: "",
                 updateProfilePhotoError: "",
-                updateProfilePhotoMessage: ""
+                updateProfilePhotoMessage: "",
+                edit: true
             });
         case UPDATE_PROFILE_INFO_REQUEST:
             return Object.assign({}, state, {
@@ -127,7 +131,8 @@ export default function profileReducer(state = initialState, action) {
 
         case UPDATE_PROFILE_PHOTO_REQUEST:
                 return Object.assign({}, state, {
-                    updateProfilePhotoPageLoading: true
+                    updateProfilePhotoPageLoading: true,
+                    edit: true
                 });
         case UPDATE_PROFILE_PHOTO_SUCCESS:
             return Object.assign({}, state, {

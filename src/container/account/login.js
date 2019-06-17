@@ -41,7 +41,6 @@ class Login extends Component {
 
     responseFacebook = (response) => {
         if (!!response.userID) {
-            console.log(response, "fb responseeeeeeeeeeeeeeeeeeeee")
             this.props.dispatch(loginAccount({
                 "name": response.name,
                 "mobile_data": "",
@@ -98,7 +97,6 @@ class Login extends Component {
 
     responseGoogle = response => {
         if (!!response.googleId) {
-            console.log(response, "respose google")
             this.props.dispatch(loginAccount({
                 "name": "",
                 "mobile_data": "",
@@ -132,7 +130,6 @@ class Login extends Component {
         channel.bind('pusher:subscription_succeeded', function () {
             self.dispatch(generateQrCodeLoading(false));
             channel.bind('qr_auth', (QrAuthData) => {
-                    console.log(QrAuthData, "QrAuthData");
                     thi.loginUserViaQrCode(AUTH_API + "/ip-address", {}, QrAuthData.unique_id, QrAuthData.user_id);
                 }
             );

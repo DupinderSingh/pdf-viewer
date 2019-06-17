@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Viewer from 'react-viewer';
+import * as scroll from 'zenscroll';
 import 'react-viewer/dist/index.css';
 import 'react-image-lightbox/style.css';
 import {displayImage, getPdfFolderStructure, updateFile} from "../../actions/dashboard";
@@ -32,9 +33,17 @@ class FolderFile extends Component {
         if (this.props.searchTemplate !== nextProps.searchTemplate) {
             nextProps.dispatch(getPdfFolderStructure(false, "document/" + localStorage.getItem("id"), true, nextProps.searchTemplate))
         }
-        if (!this.props.getPdfFolderStructurePageLoading) {
-            if (((!this.props.getPdfFolderStructurePageLoading) && (this.props.getPdfFolderStructureStatus === 200) && (!this.props.getPdfFolderStructureError))) {
-                document.getElementsByClassName("my-content")[0].scrollTo(0, 0);
+        if (!nextProps.getPdfFolderStructurePageLoading) {
+            if (((!nextProps.getPdfFolderStructurePageLoading) && (nextProps.getPdfFolderStructureStatus === 200) && (!nextProps.getPdfFolderStructureError))) {
+                if (!!document.getElementById('myContent')) {
+                    document.getElementById('myContent').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                scroll.toY(500);
+                if (!!document.getElementsByClassName("my-content")[0]) {
+                    document.getElementsByClassName("my-content")[0].scrollTo(0, 0);
+                }
             }
         }
     }
@@ -105,7 +114,7 @@ class FolderFile extends Component {
                                         }
                                     </div>
 
-                                    <div className="col-md-12 my-content">
+                                    <div className="col-md-12 my-content" id="myContent">
                                         <div className="col-md-10 files-folders-outer">
                                             {
                                                 this.props.directory.length > 0 &&

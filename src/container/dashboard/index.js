@@ -12,7 +12,7 @@ class UploadTemplate extends Component {
 
     render() {
         return (
-            <section className="content">
+            <section id="content" className="content">
                 <SearchPdf/>
                 <FolderFile/>
             </section>
@@ -20,8 +20,15 @@ class UploadTemplate extends Component {
     }
 }
 
+
 const mapStateToProps = (state) => {
-    return {state}
+    const {getPdfFolderStructurePageLoading, getPdfFolderStructureStatus, getPdfFolderStructureError, getPdfFolderStructureMessage} = state.dashboardReducer;
+    return {
+        getPdfFolderStructurePageLoading,
+        getPdfFolderStructureStatus,
+        getPdfFolderStructureError,
+        getPdfFolderStructureMessage
+    };
 };
 export default withRouter(connect(mapStateToProps)(UploadTemplate))
 

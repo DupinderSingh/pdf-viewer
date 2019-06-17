@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import { withStyles, withWidth } from '@material-ui/core';
 
 // Material components
-import { Drawer } from '@material-ui/core';
+// import { Drawer } from '@material-ui/core';
 
 // Custom components
-import { Sidebar, Topbar, Footer } from './components';
+// import { Sidebar, Topbar, Footer } from './components';
 
 // Component styles
 import styles from './styles';
@@ -39,11 +39,11 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { classes, width, title, children } = this.props;
+    const { classes, width, children } = this.props;
     const { isOpen } = this.state;
 
     const isMobile = ['xs', 'sm', 'md'].includes(width);
-    const shiftTopbar = isOpen && !isMobile;
+    // const shiftTopbar = isOpen && !isMobile;
     const shiftContent = isOpen && !isMobile;
 
     return (

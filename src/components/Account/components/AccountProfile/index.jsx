@@ -32,6 +32,7 @@ class AccountProfile extends Component {
             checkValidation(e);
             const photo = document.getElementById("photo").files[0];
             const ext = e.currentTarget.value.match(/\.(.+)$/)[1];
+            this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {[target.name]: target.value})));
             switch (ext) {
                 case 'jpg':
                     return this.props.dispatch(updateProfilePic(photo, false));
@@ -43,27 +44,47 @@ class AccountProfile extends Component {
                     return createNotification('error', 'Only png, jpg, jpeg files supported.');
 
             }
-            this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {[target.name]: target.value})))
+        }
+    }
+    componentDidMount() {
+        if (!this.props.getProfilePageLoading && this.props.getProfileStatus === 200 && !this.props.getProfileError && !this.props.edit) {
+            this.setState({profile: 0});
+            let profile = 0;
+            if (!!this.props.profile.email) {
+                profile = profile + 20;
+            }
+            if (!!this.props.profile.name) {
+                profile = profile + 20;
+            }
+            if (!!this.props.profile.mobile_data) {
+                profile = profile + 20;
+            }
+            if (!!this.props.profile.photo) {
+                profile = profile + 20;
+            }
+            this.setState({profile});
         }
     }
 
-    // componentWillReceiveProps(nextProps, nextContext) {
-    //     if (!nextProps.getProfilePageLoading && nextProps.getProfileStatus === 200 && !nextProps.getProfileError) {
-    //         this.setState({profile: 0});
-    //         if (!!nextProps.profile.email) {
-    //             this.setState({profile: this.state.profile + 20});
-    //         }
-    //         if (!!nextProps.profile.name) {
-    //             this.setState({profile: this.state.profile + 20});
-    //         }
-    //         if (!!nextProps.profile.mobile_data) {
-    //             this.setState({profile: this.state.profile + 20});
-    //         }
-    //         if (!!nextProps.profile.photo) {
-    //             this.setState({profile: this.state.profile + 20});
-    //         }
-    //     }
-    // }
+    componentWillReceiveProps(nextProps, nextContext) {
+        if (!nextProps.getProfilePageLoading && nextProps.getProfileStatus === 200 && !nextProps.getProfileError && !nextProps.edit) {
+            this.setState({profile: 0});
+            let profile = 0;
+            if (!!nextProps.profile.email) {
+                profile = profile + 20;
+            }
+            if (!!nextProps.profile.name) {
+                profile = profile + 20;
+            }
+            if (!!nextProps.profile.mobile_data) {
+                profile = profile + 20;
+            }
+            if (!!nextProps.profile.photo) {
+                profile = profile + 20;
+            }
+            this.setState({profile});
+        }
+    }
 
     render() {
         const {classes, className, ...rest} = this.props;
@@ -162,7 +183,8 @@ const mapStateToProps = (state) => {
         updateProfilePhotoPageLoading,
         updateProfilePhotoStatus,
         updateProfilePhotoError,
-        updateProfilePhotoMessage
+        updateProfilePhotoMessage,
+        edit
     } = state.profileReducer;
     const {user_id, name, mobile_data, photo, email} = profile;
     return {
@@ -183,7 +205,8 @@ const mapStateToProps = (state) => {
         updateProfilePhotoPageLoading,
         updateProfilePhotoStatus,
         updateProfilePhotoError,
-        updateProfilePhotoMessage
+        updateProfilePhotoMessage,
+        edit
     }
 };
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(AccountProfile)))

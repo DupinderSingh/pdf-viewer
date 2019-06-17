@@ -101,7 +101,6 @@ export default function accountReducer(state = initialState, action) {
                 loginAccountPageLoading: true
             });
         case LOGIN_ACCOUNT_SUCCESS:
-            console.log(action.response.data, "dataaaaaaaaaaaaaaaaa");
             if (!action.response.data.error) {
                 localStorage.setItem("id", action.response.data.user_id);
                 localStorage.setItem("name", action.response.data.name);
@@ -120,7 +119,6 @@ export default function accountReducer(state = initialState, action) {
                 });
             }
         case LOGIN_ACCOUNT_FAILURE:
-            console.log("")
             return Object.assign({}, state, {
                 loginAccountPageLoading: false,
                 loginAccountStatus: action.response.status,
