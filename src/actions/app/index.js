@@ -32,7 +32,8 @@ export function authApi() {
 }
 
 export function refreshId() {
-    let status;
+    // eslint-disable-next-line no-unused-vars
+    let status = "";
     const config = {
         method: "GET",
         // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}

@@ -12,6 +12,7 @@ import MyAccount from './container/dashboard/profile/index';
 import {refreshId} from "./actions/app";
 
 let isAuthanticated = false;
+let refresh_interval = null;
 
 function checkAuth() {
     const {auth} = store.getState().accountReducer;
@@ -59,13 +60,13 @@ class RouteComponent extends Component {
     componentDidMount() {
         const props = this.props;
         isAuthanticated = props.isAuthenticated;
-        let refresh_interval = null;
-        console.log(isAuthanticated, typeof(isAuthanticated), "authenticated");
         refresh_interval = setInterval(function () {
             if (isAuthanticated) {
                 props.dispatch(refreshId())
+            } else {
+                clearInterval(refresh_interval);
             }
-        }, 900000);
+        }, 5000);
 
 
         if (
@@ -79,7 +80,14 @@ class RouteComponent extends Component {
         if (this.props.isAuthenticated !== nextProps.isAuthenticated) {
             isAuthanticated = nextProps.isAuthenticated;
             if (nextProps.isAuthenticated) {
+                refresh_interval = setInterval(function () {
+                    nextProps.dispatch(refreshId())
+                }, 5000);
                 nextProps.dispatch(getProfile())
+            } else {
+                if (refresh_interval !== null) {
+                    clearInterval(refresh_interval);
+                }
             }
         }
     }
