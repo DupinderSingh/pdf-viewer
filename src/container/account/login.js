@@ -18,6 +18,7 @@ import Spinner from "../../components/app/spinner/spinner";
 import {authApi} from '../../actions/app/index';
 import Facebook from "../../components/account/login/facebook";
 import Google from "../../components/account/login/google";
+import AccountKit from 'react-facebook-account-kit';
 
 const AUTH_API = authApi();
 
@@ -38,6 +39,57 @@ class Login extends Component {
         this.props.dispatch(switchPhoneToVerifyOtp(false));
         this.props.dispatch(getIpAddress({}))
     }
+
+
+// initialize Account Kit with CSRF protection
+    AccountKit_OnInteractive = function () {
+        AccountKit.init(
+            {
+                appId: "{{FACEBOOK_APP_ID}}",
+                state: "{{csrf}}",
+                version: "{{ACCOUNT_KIT_API_VERSION}}",
+                fbAppEventsEnabled: true,
+                redirect: "{{REDIRECT_URL}}"
+            }
+        );
+    };
+
+// login callback
+    loginCallback(response) {
+        console.log(response, "response  login callback")
+        if (response.status === "PARTIALLY_AUTHENTICATED") {
+            var code = response.code;
+            var csrf = response.state;
+            // Send code to server to exchange for access token
+        } else if (response.status === "NOT_AUTHENTICATED") {
+            // handle authentication failure
+        } else if (response.status === "BAD_PARAMS") {
+            // handle bad parameters
+        }
+    }
+
+// phone form submission handler
+    smsLogin() {
+        var countryCode = document.getElementById("country_code").value;
+        var phoneNumber = document.getElementById("phone_number").value;
+        AccountKit.login(
+            'PHONE',
+            {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
+            this.loginCallback
+        );
+    }
+
+
+// email form submission handler
+    emailLogin() {
+        var emailAddress = document.getElementById("email").value;
+        AccountKit.login(
+            'EMAIL',
+            {emailAddress: emailAddress},
+            this.loginCallback
+        );
+    }
+
 
     responseFacebook = (response) => {
         if (!!response.userID) {
@@ -75,8 +127,8 @@ class Login extends Component {
                                     "email": "",
                                     "gmail_id": "",
                                     "fb_id": "",
-                                     unique_id   ,
-                                     user_id,
+                                    unique_id,
+                                    user_id,
                                     "type": "0"
                                 }));
                             }
@@ -222,8 +274,30 @@ class Login extends Component {
                                     }
                                     <div className="social-auth-links text-center mb-3">
                                         <Facebook responseFacebook={this.responseFacebook}/>
-                                       <Google responseGoogle={this.responseGoogle}/>
-                                </div>
+                                        <Google responseGoogle={this.responseGoogle}/>
+
+                                        {/*<div className="facebook-account-kit">*/}
+                                        {/*    <input value="+91" id="country_code"/>*/}
+                                        {/*    <input placeholder="phone number" id="phone_number"/>*/}
+                                        {/*    <button onClick={this.smsLogin.bind(this)}>Login via SMS</button>*/}
+                                        {/*    <div>OR</div>*/}
+                                        {/*    <input placeholder="email" id="email"/>*/}
+                                        {/*    <button onClick={this.emailLogin.bind(this)}>Login via Email</button>*/}
+
+                                        {/*</div>*/}
+
+                                        <AccountKit
+                                            appId={"2309957712579768"} // Update this!
+                                            version="v1.0" // Version must be in form v{major}.{minor}
+                                            onResponse={(resp) => console.log(resp)}
+                                            csrf={"eefe54b1c97eb4b17b155859fae547e3"} // Required for security
+                                            countryCode={"+60"} // eg. +60
+                                            phoneNumber={"9786545432"} // eg. 12345678
+                                            emailAddress={'developer.iapptechnologies@gmail.com'} // eg. me@site.com
+                                        >
+                                            {p => <button {...p}>Initialize Account Kit</button>}
+                                        </AccountKit>
+                                    </div>
                                 </div>
                             </div>
                         </div>

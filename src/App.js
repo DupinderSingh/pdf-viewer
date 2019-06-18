@@ -66,12 +66,10 @@ class RouteComponent extends Component {
             } else {
                 clearInterval(refresh_interval);
             }
-        }, 5000);
-
+        }, 600000);
 
         if (
-            this.props.isAuthenticated &&
-            this.props.location.pathname !== "/profile") {
+            this.props.isAuthenticated && this.props.location.pathname !== "/profile") {
             this.props.dispatch(getProfile())
         }
     }
@@ -82,7 +80,7 @@ class RouteComponent extends Component {
             if (nextProps.isAuthenticated) {
                 refresh_interval = setInterval(function () {
                     nextProps.dispatch(refreshId())
-                }, 5000);
+                }, 600000);
                 nextProps.dispatch(getProfile())
             } else {
                 if (refresh_interval !== null) {
