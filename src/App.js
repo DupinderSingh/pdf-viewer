@@ -1,7 +1,7 @@
 import React, {Component, Suspense} from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
-import {NotificationContainer} from 'react-notifications';
+// import {NotificationContainer} from 'react-notifications';
 import Dashboard from './container/dashboard/index';
 import {store} from '../src/index';
 import Footer from "./components/app/footer";
@@ -9,6 +9,7 @@ import Sidebar from "./components/dashboard/sidebar";
 import {getProfile} from "./actions/dashboard/profile";
 import MyAccount from './container/dashboard/profile/index';
 import {refreshId} from "./actions/app";
+import ReactNotification from "react-notifications-component";
 const Login = React.lazy(() => import('./container/account/login'));
 
 let isAuthanticated = false;
@@ -51,12 +52,17 @@ export function BodyWrapper(props) {
                         <Redirect from="*" to='/dashboard'/>
                     </Switch>
                 </div>
+                <Footer/>
             </div>
         </div>
     )
 }
 
 class RouteComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.notificationDOMRef = React.createRef();
+    }
     componentDidMount() {
         const props = this.props;
         isAuthanticated = props.isAuthenticated;
@@ -97,9 +103,8 @@ class RouteComponent extends Component {
                 <Switch>
                     <ProtectedRoute exact path="/login" component={Login}/>
                     <BodyWrapper props={this.props}/>
-                    <Footer/>
                 </Switch>
-                <NotificationContainer/>
+                    <ReactNotification ref={this.notificationDOMRef} />
                 </Suspense>
             </div>
         )

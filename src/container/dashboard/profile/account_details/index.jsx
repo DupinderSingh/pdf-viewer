@@ -19,9 +19,14 @@ import {
   updateProfileInfo
 } from "../../../../actions/dashboard/profile";
 import {checkValidation} from "../../../../actions/app";
-import createNotification from "../../../../components/app/notification";
+import {notify} from "../../../../components/app/notification";
+import ReactNotification from "react-notifications-component";
 
 class AccountDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.notificationDOMRef = React.createRef();
+  }
   componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.updateProfileInfoStatus !== "" && nextProps.updateProfileInfoError !== "") {
       if (nextProps.updateProfileInfoStatus === 200) {
@@ -34,14 +39,14 @@ class AccountDetails extends Component {
             "email": ""
           }));
           nextProps.dispatch(getProfile());
-          createNotification('success', nextProps.updateProfileInfoMessage);
+          notify('success', nextProps.updateProfileInfoMessage);
         } else {
           nextProps.dispatch(changeProfileState(nextProps.profile));
-          createNotification('error', nextProps.updateProfileInfoMessage);
+          notify('danger', nextProps.updateProfileInfoMessage);
         }
       } else {
         nextProps.dispatch(changeProfileState(nextProps.profile));
-        createNotification('error', nextProps.updateProfileInfoMessage);
+        notify('danger', nextProps.updateProfileInfoMessage);
       }
     }
 
@@ -57,14 +62,14 @@ class AccountDetails extends Component {
             "email": nextProps.profile.email
           }));
           nextProps.dispatch(getProfile());
-          createNotification('success', nextProps.updateProfilePhotoMessage);
+          notify('success', nextProps.updateProfilePhotoMessage);
         } else {
           nextProps.dispatch(changeProfileState(nextProps.profile));
-          createNotification('error', nextProps.updateProfilePhotoMessage);
+          notify('danger', nextProps.updateProfilePhotoMessage);
         }
       } else {
         nextProps.dispatch(changeProfileState(nextProps.profile));
-        createNotification('error', nextProps.updateProfilePhotoMessage);
+        notify('danger', nextProps.updateProfilePhotoMessage);
       }
     }
   }
@@ -187,6 +192,7 @@ class AccountDetails extends Component {
                 </PortletFooter>
                 </form>
               </PortletContent>
+              <ReactNotification ref={this.notificationDOMRef} />
             </Portlet>
     );
   }

@@ -219,7 +219,7 @@ class FolderFile extends Component {
 
                                                     <div className="empty-display-image-outer" style={{cursor: "default", textAlign: "center", width: "100%"}}>
                                                             <img className="empty-display-image"
-                                                                 src={require("../../images/empty.jpg")}
+                                                                 src={require("../../images/empty.png")}
                                                                  alt={"no documents found"}
                                                                  style={{cursor: "default"}}
                                                             />

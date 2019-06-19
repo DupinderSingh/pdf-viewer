@@ -12,12 +12,14 @@ import {Portlet, PortletContent, PortletFooter} from '../../../../components';
 import styles from './styles';
 import {checkValidation} from "../../../../actions/app";
 import {changeProfileState, updateProfilePic} from "../../../../actions/dashboard/profile";
-import createNotification from "../../../../components/app/notification";
+import {notify} from "../../../../components/app/notification";
 import {connect} from "react-redux";
+import ReactNotification from "react-notifications-component";
 
 class AccountProfile extends Component {
     constructor(props) {
         super(props);
+        this.notificationDOMRef = React.createRef();
         this.state = {
             profile: 0
         }
@@ -41,7 +43,7 @@ class AccountProfile extends Component {
                 case 'png':
                     return this.props.dispatch(updateProfilePic(photo, false));
                 default:
-                    return createNotification('error', 'Only png, jpg, jpeg files supported.');
+                    return notify('danger', 'Only png, jpg, jpeg files supported.');
 
             }
         }
@@ -162,6 +164,7 @@ class AccountProfile extends Component {
                         className="MuiTouchRipple-root"></span></button>
 
                 </PortletFooter>
+                <ReactNotification ref={this.notificationDOMRef} />
             </Portlet>
         );
     }

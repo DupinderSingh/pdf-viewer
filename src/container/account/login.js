@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {NotificationContainer} from 'react-notifications';
+// import {NotificationContainer} from 'react-notifications';
+import ReactNotification from "react-notifications-component";
 import Pusher from 'pusher-js';
 import {
     changeLoginForm,
@@ -11,7 +12,7 @@ import {
     loginAccount,
     switchPhoneToVerifyOtp
 } from '../../actions/account/index';
-import createNotification from '../../components/app/notification';
+import {notify} from '../../components/app/notification';
 import PhoneNumberForm from "../../components/account/login/phone-number-form";
 import VerifyOtpForm from "../../components/account/login/verify-otp";
 import Spinner from "../../components/app/spinner/spinner";
@@ -28,6 +29,7 @@ let pusher = null, channel = null;
 class Login extends Component {
     constructor(props) {
         super(props);
+        this.notificationDOMRef = React.createRef();
         this.state = {
             pusher_key: process.env.REACT_APP_WS_PUSHER_APP_KEY,
             fb_appId: process.env.REACT_APP_FACEBOOK_APP_ID,
@@ -177,15 +179,15 @@ class Login extends Component {
             if (nextProps.loginAccountStatus === 200) {
                 if (!nextProps.loginAccountError) {
                     nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: ""}));
-                    createNotification('success', nextProps.loginAccountMessage);
+                    notify('success', nextProps.loginAccountMessage);
                     nextProps.dispatch(login());
                 } else {
                     nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
-                    createNotification('error', nextProps.loginAccountMessage);
+                    notify('danger', nextProps.loginAccountMessage);
                 }
             } else {
                 nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
-                createNotification('error', nextProps.loginAccountMessage);
+                notify('danger', nextProps.loginAccountMessage);
             }
         }
         if (nextProps.isAuthenticated) {
@@ -268,7 +270,7 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
-                <NotificationContainer/>
+                <ReactNotification ref={this.notificationDOMRef} />
             </div>
         )
     }

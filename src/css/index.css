@@ -21228,7 +21228,7 @@ btn-primary:hover, btn-primary:active, btn-primary:focus, div.google button:hove
 .col-md-12.my-content {
     overflow: hidden;
     max-height: calc(100vh - 570px);
-    min-height: 200px;
+    min-height: 300px;
 }
 .col-md-12.my-content:hover {
     overflow-y: auto;

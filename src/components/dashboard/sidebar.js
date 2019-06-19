@@ -2,12 +2,17 @@
 import React, {Component} from "react";
 import {withRouter, Link} from 'react-router-dom';
 import {connect} from "react-redux";
-import {NotificationContainer} from "react-notifications";
-import createNotification from "../app/notification";
+// import {NotificationContainer} from "react-notifications";
+import {notify} from "../app/notification";
 import DialogBox from "../app/dialogbox";
 import {clearLogoutApiResponse, logout, logoutAccount} from '../../actions/account/index';
+import ReactNotification from "react-notifications-component";
 
 class Sidebar extends Component {
+    constructor(props) {
+        super(props);
+        this.notificationDOMRef = React.createRef();
+    }
   signout(e) {
       e.preventDefault();
       this.props.dispatch(logoutAccount({user_id: localStorage.getItem("id")}));
@@ -23,17 +28,17 @@ class Sidebar extends Component {
           if (nextProps.logoutAccountStatus === 200) {
               if (!nextProps.logoutAccountError) {
                   nextProps.dispatch(clearLogoutApiResponse());
-                  createNotification("success", nextProps.logoutAccountMessage);
+                  notify("success", nextProps.logoutAccountMessage);
                   nextProps.dispatch(logout());
               }
               else {
                   nextProps.dispatch(clearLogoutApiResponse());
-                  createNotification("error", nextProps.logoutAccountMessage);
+                  notify("danger", nextProps.logoutAccountMessage);
               }
           }
           else {
               nextProps.dispatch(clearLogoutApiResponse());
-              createNotification("error", nextProps.logoutAccountMessage);
+              notify("danger", nextProps.logoutAccountMessage);
           }
       }
   }
@@ -104,7 +109,7 @@ class Sidebar extends Component {
                     primaryBody="Are you sure you want to Sign Out current session ?"
                     react={this.signout}
                     status="Signout"/>
-                    <NotificationContainer/>
+                <ReactNotification ref={this.notificationDOMRef} />
             </aside>
         )
     }

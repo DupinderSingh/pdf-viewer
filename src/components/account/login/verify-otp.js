@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import Input from "../../app/input";
 import {changeLoginForm, loginAccount, switchPhoneToVerifyOtp} from "../../../actions/account";
 import {checkValidation} from "../../../actions/app";
-import {NotificationContainer} from "react-notifications";
 
 class VerifyOtpForm extends Component {
     componentWillMount() {
@@ -80,7 +79,6 @@ class VerifyOtpForm extends Component {
                         </div>
                     </div>
                 </form>
-                <NotificationContainer/>
             </div>
         )
     }

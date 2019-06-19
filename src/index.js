@@ -19,6 +19,7 @@ import "./assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"
 import "./assets/dist/js/pages/dashboard2.js";
 import "./assets/dist/js/demo.js";
 
+import "react-notifications-component/dist/theme.css";
 import './css/index.css';
 
 import combineReducers from "./reducers/index";
