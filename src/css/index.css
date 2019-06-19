@@ -21317,3 +21317,21 @@ span.btn-group-lg {
     width: 100% !important;
     height: 100% !important;
 }
+
+.main-footer {
+    margin: auto;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    z-index: 99999;
+}
+
+
+.logout-outer  {
+    width: 100%;
+    background-color: #dfe0e0;
+    margin-bottom: 0;
+    margin-left: -15px;
+    padding-left: 15px;
+    z-index: 999999999999999999;
+}
