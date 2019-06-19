@@ -21,10 +21,6 @@ import "./assets/dist/js/demo.js";
 
 import './css/index.css';
 
-// import './css/canva/4e7c38df250258922d40.css';
-// import './css/canva/8a6522eb755b2bbbea56.css';
-// import './css/canva/737b4e1afd29ebc5930f.css';
-
 import combineReducers from "./reducers/index";
 import getApi from "./middleware/token/get-api";
 import getWithoutToken from "./middleware/without_token/get-api";

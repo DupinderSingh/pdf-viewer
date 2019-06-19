@@ -117,7 +117,7 @@ class NotificationList extends Component {
               <img
                 alt="Empty list"
                 className={classes.emptyImage}
-                src="/images/empty.png"
+                src="/images/empty.jpg"
               />
             </div>
             <Typography variant="h4">There's nothing here...</Typography>

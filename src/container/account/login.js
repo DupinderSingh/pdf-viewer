@@ -248,29 +248,20 @@ class Login extends Component {
                                     <div className="social-auth-links text-center mb-3">
                                         <Facebook responseFacebook={this.responseFacebook}/>
                                         <Google responseGoogle={this.responseGoogle}/>
-
-                                        {/*<div className="facebook-account-kit">*/}
-                                        {/*    <input value="+91" id="country_code"/>*/}
-                                        {/*    <input placeholder="phone number" id="phone_number"/>*/}
-                                        {/*    <button onClick={this.smsLogin.bind(this)}>Login via SMS</button>*/}
-                                        {/*    <div>OR</div>*/}
-                                        {/*    <input placeholder="email" id="email"/>*/}
-                                        {/*    <button onClick={this.emailLogin.bind(this)}>Login via Email</button>*/}
-
-                                        {/*</div>*/}
-
-                                        <AccountKit
-                                            appId={this.state.fb_appId}
-                                            loginType={this.state.fb_ak_loginType}
-                                            version={this.state.fb_ak_version}
-                                            onResponse={(resp) => this.facebookKitResponse(resp)}
-                                            csrf={this.state.fb_ak_csrf}
-                                            countryCode={this.state.fb_ak_countryCode}
-                                            phoneNumber={this.state.fb_ak_phoneNumber}
-                                            emailAddress={this.state.fb_ak_emailAddress}
-                                        >
-                                            {p => <button {...p}>Initialize Account Kit</button>}
-                                        </AccountKit>
+                                        <div className="login-number">
+                                            <AccountKit
+                                                appId={this.state.fb_appId}
+                                                loginType={this.state.fb_ak_loginType}
+                                                version={this.state.fb_ak_version}
+                                                onResponse={(resp) => this.facebookKitResponse(resp)}
+                                                csrf={this.state.fb_ak_csrf}
+                                                countryCode={this.state.fb_ak_countryCode}
+                                                phoneNumber={this.state.fb_ak_phoneNumber}
+                                                emailAddress={this.state.fb_ak_emailAddress}
+                                            >
+                                                {p => <button {...p}><i className="fa fa-phone" aria-hidden="true"></i> Sign in using Phone Number</button>}
+                                            </AccountKit>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

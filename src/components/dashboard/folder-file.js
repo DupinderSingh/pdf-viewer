@@ -217,16 +217,12 @@ class FolderFile extends Component {
                                                 {
                                                     this.props.directory.length === 0 &&
 
-                                                    <div className="files-folders" style={{cursor: "default"}}>
-                                                        <div className="folder-file-display-outer"
-                                                             style={{cursor: "default"}}>
-                                                            <img className="folder-file-display-image"
-                                                                 src={require("../../images/empty.png")}
-                                                                 alt={"folder pic"}
+                                                    <div className="empty-display-image-outer" style={{cursor: "default", textAlign: "center", width: "100%"}}>
+                                                            <img className="empty-display-image"
+                                                                 src={require("../../images/empty.jpg")}
+                                                                 alt={"no documents found"}
                                                                  style={{cursor: "default"}}
                                                             />
-
-                                                        </div>
                                                     </div>
                                                 }
                                             </div>

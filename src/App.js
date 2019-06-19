@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense} from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import {NotificationContainer} from 'react-notifications';
 import Dashboard from './container/dashboard/index';
-import Login from './container/account/login';
 import {store} from '../src/index';
 import Footer from "./components/app/footer";
 import Sidebar from "./components/dashboard/sidebar";
 import {getProfile} from "./actions/dashboard/profile";
 import MyAccount from './container/dashboard/profile/index';
 import {refreshId} from "./actions/app";
+const Login = React.lazy(() => import('./container/account/login'));
 
 let isAuthanticated = false;
 let refresh_interval = null;
@@ -93,12 +93,14 @@ class RouteComponent extends Component {
     render() {
         return (
             <div>
+                <Suspense fallback={<div className="lazy-loading-outer"><img className="lazy-loading-inner" src={require("./images/background-lazy-100.jpg")} alt="lazy-loading"/></div>}>
                 <Switch>
                     <ProtectedRoute exact path="/login" component={Login}/>
                     <BodyWrapper props={this.props}/>
                     <Footer/>
                 </Switch>
                 <NotificationContainer/>
+                </Suspense>
             </div>
         )
     }

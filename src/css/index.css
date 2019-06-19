@@ -20675,7 +20675,6 @@ not(._1_aq3twh-9n_RGqZbCQUhB
     background: white;
     height: 150px;
 }
-
 .login-logo img {
     z-index: 9999 !important;
     width: auto;
@@ -20685,6 +20684,8 @@ not(._1_aq3twh-9n_RGqZbCQUhB
     padding: 10px;
     background: white;
     height: 150px;
+    min-width: 150px;
+    min-height: 150px;
 }
 
 #myPhoto {
@@ -21045,7 +21046,7 @@ img.file-image-inner {
  .user-panel, .sidebar-menu>li:hover {
   background-color: rgba(14, 19, 24, 0.08) !important;
 }
-.folder-file {margin-top: 30px;}
+.folder-file {margin-top: 30px; width: 100%}
 
 .files-folders {
     display: inline-block;
@@ -21246,6 +21247,7 @@ button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButt
 }
 .back-button-outer, .refresh-button-outer {
          text-align: right;
+    float: right;
      }
 
 .AccountProfile-details-327 {
@@ -21269,9 +21271,6 @@ button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButt
 
 .loading-outer {
     position: relative;
-    padding: 10px 20px 10px 15px;
-    margin-top: 50px;
-    margin-right: 30px;
 }
 
 .sweet-loading .css-0 {
@@ -21296,4 +21295,25 @@ span.btn-group-lg {
     border-radius: 4px !important;
     margin-left: -3px;
     z-index: 9999;
+}
+.login-number button {
+    background-color: #d83946;
+    border: 1px solid #d83946;
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 10px;
+    width: 100%;
+    color: #ffff;
+}
+
+
+.fb a {
+    background-color: #3b5998 !important;
+    border: 1px solid #3a5998 !important;
+}
+
+.lazy-loading-outer, .lazy-loading-inner {
+    width: 100% !important;
+    height: 100% !important;
 }
