@@ -29,6 +29,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            pusher_key: process.env.REACT_APP_WS_PUSHER_APP_KEY,
             fb_appId: process.env.REACT_APP_FACEBOOK_APP_ID,
             fb_ak_loginType: process.env.REACT_APP_FACEBOOK_AK_LOGIN_TYPE,
             fb_ak_version: process.env.REACT_APP_FACEBOOK_AK_VERSION,
@@ -40,7 +41,6 @@ class Login extends Component {
     }
 
     facebookKitResponse(resp) {
-        console.log(resp, "facebook kit response........");
         if (resp.status === "PARTIALLY_AUTHENTICATED") {
             this.props.dispatch(loginAccount({
                 "name": "",
@@ -147,7 +147,7 @@ class Login extends Component {
             video.play();
         }
         self.dispatch(generateQrCodeLoading(true));
-        pusher = new Pusher("936c591f8afac676dbf6", {
+        pusher = new Pusher(thi.state.pusher_key, {
             cluster: "ap2",
             encrypted: true
         });
