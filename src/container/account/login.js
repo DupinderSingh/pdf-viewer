@@ -29,65 +29,38 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ipv4: "",
-            ipv6: ""
+            fb_appId: process.env.REACT_APP_FACEBOOK_APP_ID,
+            fb_ak_loginType: process.env.REACT_APP_FACEBOOK_AK_LOGIN_TYPE,
+            fb_ak_version: process.env.REACT_APP_FACEBOOK_AK_VERSION,
+            fb_ak_csrf: process.env.REACT_APP_FACEBOOK_AK_CSRF,
+            fb_ak_countryCode: process.env.REACT_APP_FACEBOOK_AK_COUNTRY_CODE,
+            fb_ak_phoneNumber: process.env.REACT_APP_FACEBOOK_AK_PHONE_NUMBER,
+            fb_ak_emailAddress: process.env.REACT_APP_FACEBOOK_AK_EMAIL
         }
+    }
+
+    facebookKitResponse(resp) {
+        console.log(resp, "facebook kit response........");
+        if (resp.status === "PARTIALLY_AUTHENTICATED") {
+            this.props.dispatch(loginAccount({
+                "name": "",
+                "mobile_data": "",
+                "email": "",
+                "profile_url": "",
+                "gmail_id": "",
+                "fb_id": "",
+                "unique_id": "",
+                "code": resp.code,
+                "type": "2"
+            }))
+        }
+
     }
 
     componentWillMount() {
         document.title = "Login | Pdf Scanner";
         this.props.dispatch(switchPhoneToVerifyOtp(false));
         this.props.dispatch(getIpAddress({}))
-    }
-
-
-// initialize Account Kit with CSRF protection
-    AccountKit_OnInteractive = function () {
-        AccountKit.init(
-            {
-                appId: "{{FACEBOOK_APP_ID}}",
-                state: "{{csrf}}",
-                version: "{{ACCOUNT_KIT_API_VERSION}}",
-                fbAppEventsEnabled: true,
-                redirect: "{{REDIRECT_URL}}"
-            }
-        );
-    };
-
-// login callback
-    loginCallback(response) {
-        console.log(response, "response  login callback")
-        if (response.status === "PARTIALLY_AUTHENTICATED") {
-            var code = response.code;
-            var csrf = response.state;
-            // Send code to server to exchange for access token
-        } else if (response.status === "NOT_AUTHENTICATED") {
-            // handle authentication failure
-        } else if (response.status === "BAD_PARAMS") {
-            // handle bad parameters
-        }
-    }
-
-// phone form submission handler
-    smsLogin() {
-        var countryCode = document.getElementById("country_code").value;
-        var phoneNumber = document.getElementById("phone_number").value;
-        AccountKit.login(
-            'PHONE',
-            {countryCode: countryCode, phoneNumber: phoneNumber}, // will use default values if not specified
-            this.loginCallback
-        );
-    }
-
-
-// email form submission handler
-    emailLogin() {
-        var emailAddress = document.getElementById("email").value;
-        AccountKit.login(
-            'EMAIL',
-            {emailAddress: emailAddress},
-            this.loginCallback
-        );
     }
 
 
@@ -287,13 +260,14 @@ class Login extends Component {
                                         {/*</div>*/}
 
                                         <AccountKit
-                                            appId={"2309957712579768"} // Update this!
-                                            version="v1.0" // Version must be in form v{major}.{minor}
-                                            onResponse={(resp) => console.log(resp)}
-                                            csrf={"eefe54b1c97eb4b17b155859fae547e3"} // Required for security
-                                            countryCode={"+60"} // eg. +60
-                                            phoneNumber={"9786545432"} // eg. 12345678
-                                            emailAddress={'developer.iapptechnologies@gmail.com'} // eg. me@site.com
+                                            appId={this.state.fb_appId}
+                                            loginType={this.state.fb_ak_loginType}
+                                            version={this.state.fb_ak_version}
+                                            onResponse={(resp) => this.facebookKitResponse(resp)}
+                                            csrf={this.state.fb_ak_csrf}
+                                            countryCode={this.state.fb_ak_countryCode}
+                                            phoneNumber={this.state.fb_ak_phoneNumber}
+                                            emailAddress={this.state.fb_ak_emailAddress}
                                         >
                                             {p => <button {...p}>Initialize Account Kit</button>}
                                         </AccountKit>
