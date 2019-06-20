@@ -43,7 +43,7 @@ class AccountProfile extends Component {
                 case 'png':
                     return this.props.dispatch(updateProfilePic(photo, false));
                 default:
-                    return notify('danger', 'Only png, jpg, jpeg files supported.');
+                    return notify(this.notificationDOMRef, 'danger', 'Only png, jpg, jpeg files supported.');
 
             }
         }

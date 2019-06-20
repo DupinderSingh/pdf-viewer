@@ -179,15 +179,15 @@ class Login extends Component {
             if (nextProps.loginAccountStatus === 200) {
                 if (!nextProps.loginAccountError) {
                     nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: ""}));
-                    notify('success', nextProps.loginAccountMessage);
+                    notify(this.notificationDOMRef, 'success', nextProps.loginAccountMessage);
                     nextProps.dispatch(login());
                 } else {
                     nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
-                    notify('danger', nextProps.loginAccountMessage);
+                    notify(this.notificationDOMRef, 'danger', nextProps.loginAccountMessage);
                 }
             } else {
                 nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
-                notify('danger', nextProps.loginAccountMessage);
+                notify(this.notificationDOMRef, 'danger', nextProps.loginAccountMessage);
             }
         }
         if (nextProps.isAuthenticated) {
@@ -239,14 +239,14 @@ class Login extends Component {
                                     </div>
                                 </div>
                                 <div className="card-body login-card-body">
-                                    {
-                                        this.props.switchPhoneToOtp &&
-                                        <VerifyOtpForm/>
-                                    }
-                                    {
-                                        !this.props.switchPhoneToOtp &&
-                                        <PhoneNumberForm/>
-                                    }
+                                    {/*{*/}
+                                    {/*    this.props.switchPhoneToOtp &&*/}
+                                    {/*    <VerifyOtpForm/>*/}
+                                    {/*}*/}
+                                    {/*{*/}
+                                    {/*    !this.props.switchPhoneToOtp &&*/}
+                                    {/*    <PhoneNumberForm/>*/}
+                                    {/*}*/}
                                     <div className="social-auth-links text-center mb-3">
                                         <Facebook responseFacebook={this.responseFacebook}/>
                                         <Google responseGoogle={this.responseGoogle}/>

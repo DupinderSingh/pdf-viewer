@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import FolderFile from '../../components/dashboard/folder-file';
 import SearchPdf from "../../components/dashboard/search-pdf";
 import {clearFileFolderData} from "../../actions/dashboard";
+import ReactNotification from "react-notifications-component";
 
 class UploadTemplate extends Component {
     componentWillMount() {
@@ -15,6 +16,7 @@ class UploadTemplate extends Component {
             <section id="content" className="content">
                 <SearchPdf/>
                 <FolderFile/>
+                <ReactNotification ref={this.notificationDOMRef} />
             </section>
         )
     }

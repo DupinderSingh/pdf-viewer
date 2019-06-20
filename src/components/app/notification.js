@@ -1,8 +1,7 @@
-import React from 'react';
-
-export const notify = (type, message) => {
-    if (React.createRef().current) {
-        React.createRef().current.addNotification({
+export const notify = (callFunction, type, message) => {
+    console.log(callFunction, "callFunction")
+    if (!!callFunction) {
+        callFunction.current.addNotification({
             title: "",
             message,
             type,
@@ -15,3 +14,4 @@ export const notify = (type, message) => {
         });
     }
 };
+

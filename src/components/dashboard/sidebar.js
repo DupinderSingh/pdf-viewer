@@ -28,17 +28,17 @@ class Sidebar extends Component {
           if (nextProps.logoutAccountStatus === 200) {
               if (!nextProps.logoutAccountError) {
                   nextProps.dispatch(clearLogoutApiResponse());
-                  notify("success", nextProps.logoutAccountMessage);
+                  notify(this.notificationDOMRef, "success", nextProps.logoutAccountMessage);
                   nextProps.dispatch(logout());
               }
               else {
                   nextProps.dispatch(clearLogoutApiResponse());
-                  notify("danger", nextProps.logoutAccountMessage);
+                  notify(this.notificationDOMRef, "danger", nextProps.logoutAccountMessage);
               }
           }
           else {
               nextProps.dispatch(clearLogoutApiResponse());
-              notify("danger", nextProps.logoutAccountMessage);
+              notify(this.notificationDOMRef, "danger", nextProps.logoutAccountMessage);
           }
       }
   }

@@ -10,6 +10,7 @@ import {getProfile} from "./actions/dashboard/profile";
 import MyAccount from './container/dashboard/profile/index';
 import {refreshId} from "./actions/app";
 import ReactNotification from "react-notifications-component";
+
 const Login = React.lazy(() => import('./container/account/login'));
 
 let isAuthanticated = false;
@@ -63,6 +64,7 @@ class RouteComponent extends Component {
         super(props);
         this.notificationDOMRef = React.createRef();
     }
+
     componentDidMount() {
         const props = this.props;
         isAuthanticated = props.isAuthenticated;
@@ -99,12 +101,14 @@ class RouteComponent extends Component {
     render() {
         return (
             <div>
-                <Suspense fallback={<div className="lazy-loading-outer"><img className="lazy-loading-inner" src={require("./images/background-lazy-100.jpg")} alt="lazy-loading"/></div>}>
-                <Switch>
-                    <ProtectedRoute exact path="/login" component={Login}/>
-                    <BodyWrapper props={this.props}/>
-                </Switch>
-                    <ReactNotification ref={this.notificationDOMRef} />
+                <Suspense fallback={<div className="lazy-loading-outer"><img className="lazy-loading-inner"
+                                                                             src={require("./images/background-lazy-100.jpg")}
+                                                                             alt="lazy-loading"/></div>}>
+                    <Switch>
+                        <ProtectedRoute exact path="/login" component={Login}/>
+                        <BodyWrapper props={this.props}/>
+                    </Switch>
+                    <ReactNotification ref={this.notificationDOMRef}/>
                 </Suspense>
             </div>
         )

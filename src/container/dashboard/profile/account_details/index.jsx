@@ -39,14 +39,14 @@ class AccountDetails extends Component {
             "email": ""
           }));
           nextProps.dispatch(getProfile());
-          notify('success', nextProps.updateProfileInfoMessage);
+          notify(this.notificationDOMRef, 'success', nextProps.updateProfileInfoMessage);
         } else {
           nextProps.dispatch(changeProfileState(nextProps.profile));
-          notify('danger', nextProps.updateProfileInfoMessage);
+          notify(this.notificationDOMRef, 'danger', nextProps.updateProfileInfoMessage);
         }
       } else {
         nextProps.dispatch(changeProfileState(nextProps.profile));
-        notify('danger', nextProps.updateProfileInfoMessage);
+        notify(this.notificationDOMRef, 'danger', nextProps.updateProfileInfoMessage);
       }
     }
 
@@ -62,14 +62,14 @@ class AccountDetails extends Component {
             "email": nextProps.profile.email
           }));
           nextProps.dispatch(getProfile());
-          notify('success', nextProps.updateProfilePhotoMessage);
+          notify(this.notificationDOMRef, 'success', nextProps.updateProfilePhotoMessage);
         } else {
           nextProps.dispatch(changeProfileState(nextProps.profile));
-          notify('danger', nextProps.updateProfilePhotoMessage);
+          notify(this.notificationDOMRef, 'danger', nextProps.updateProfilePhotoMessage);
         }
       } else {
         nextProps.dispatch(changeProfileState(nextProps.profile));
-        notify('danger', nextProps.updateProfilePhotoMessage);
+        notify(this.notificationDOMRef, 'danger', nextProps.updateProfilePhotoMessage);
       }
     }
   }
