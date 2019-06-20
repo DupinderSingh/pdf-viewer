@@ -4,7 +4,6 @@ import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 // import {NotificationContainer} from 'react-notifications';
 import Dashboard from './container/dashboard/index';
 import {store} from '../src/index';
-import Footer from "./components/app/footer";
 import Sidebar from "./components/dashboard/sidebar";
 import {getProfile} from "./actions/dashboard/profile";
 import MyAccount from './container/dashboard/profile/index';
@@ -53,7 +52,6 @@ export function BodyWrapper(props) {
                         <Redirect from="*" to='/dashboard'/>
                     </Switch>
                 </div>
-                <Footer/>
             </div>
         </div>
     )

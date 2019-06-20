@@ -11,7 +11,7 @@ class DialogBox extends Component {
 
     render() {
         return (
-            <form onSubmit={this.props.react.bind(this)}>
+            <form onSubmit={this.props.react.bind(this)} className="logout-form">
                 <div className="modal fade" id="dialogBox" tabIndex="-1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">

@@ -19,7 +19,8 @@ export default theme => ({
     flexGrow: 0
   },
   progressWrapper: {
-    marginTop: theme.spacing.unit * 2
+    marginTop: theme.spacing.unit * 2,
+    width: '100%'
   },
   uploadButton: {
     marginRight: theme.spacing.unit * 2

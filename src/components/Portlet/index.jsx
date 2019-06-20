@@ -14,7 +14,10 @@ import Paper from '../Paper';
 const styles = () => ({
   root: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderRadius: '6px',
+    boxShadow: '1px 1px 15px 2px #9c9c9c29',
+    padding: '10px 10px 15px 10px'
   }
 });
 

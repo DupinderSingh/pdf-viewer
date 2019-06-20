@@ -9,7 +9,7 @@ export default theme => ({
     marginRight: theme.spacing.unit * 3
   },
   portletFooter: {
-    width: '40%',
+    width: '300px',
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
     paddingTop: theme.spacing.unit * 2,

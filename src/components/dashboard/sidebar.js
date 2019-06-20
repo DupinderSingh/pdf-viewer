@@ -97,12 +97,17 @@ class Sidebar extends Component {
 
                     </ul>
                 </section>
-                <div className="logout-outer">
-                  <i data-toggle="modal"
-                  onClick={this.openDialog.bind(this)}
-                  data-target="#dialogBox"
-                  data-backdrop={false}
-                  className="fa fa-sign-out logout-inner"></i>
+                <div className="logout-outer" data-toggle="modal"
+                     onClick={this.openDialog.bind(this)}
+                     data-target="#dialogBox"
+                     data-backdrop={false}>
+                  <i className="fa fa-sign-out logout-inner"></i>
+                </div>
+                <div className="left-footer">
+                    <div className="copyright">Copyright © 2019 Pdf Viewer. All rights reserved.
+                    </div>
+                    <div className="version">Version 1.0
+                    </div>
                 </div>
                 <DialogBox
                     heading="Sign Out"

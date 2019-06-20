@@ -20785,10 +20785,7 @@ p.error {
 }
 
 .login-box-body .card {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    padding-top: 0px !important;
-    padding-bottom: 15px !important;
+    padding: 0px 15px 15px 15px !important;
 }
 
 /*profile*/
@@ -20988,10 +20985,6 @@ img.file-image-inner {
   min-height: 100px !important;
   height: auto !important
 }
-.user-panel>.image>img {
-  min-height: 50px !important;
-  height: auto !important
-}
 .image-after {
   position: relative;
   height: 100%;
@@ -21023,6 +21016,7 @@ img.file-image-inner {
 .sidebar-menu li>a, .main-sidebar, .sidebar-menu .header {
     color: #000 !important;
     padding-left: 10px;
+    padding-right: 10px;
 }
 .sidebar-menu li>a i{font-size: 20px;    width: 20px !important;}
 .sidebar-menu li>a span{ font-size: 18px;
@@ -21044,7 +21038,8 @@ img.file-image-inner {
 .sidebar .sidebar-menu {margin-top: 20px;}
 .user-panel>.info>a {font-size: 13px;    word-break: break-word !important;}
  .user-panel, .sidebar-menu>li:hover {
-  background-color: rgba(14, 19, 24, 0.08) !important;
+     background-color: rgba(14, 19, 24, 0.08) !important;
+     border-radius: 4px;
 }
 .folder-file {margin-top: 30px; width: 100%}
 
@@ -21085,11 +21080,8 @@ img.file-image-inner {
     margin-bottom: 5px;
     bottom: 0px;
     left: 15px;
-    font-size: 45px;
+    font-size: 36px;
     color: black;
-}
-.logout-outer:hover {
-  cursor: pointer
 }
 @media (max-width: 767px) {
   .main-sidebar {
@@ -21110,7 +21102,7 @@ img.file-image-inner {
 .profile-info-form .btn {
     font-size: 16px !important;
     border-radius: 4px !important;
-    line-height: 28px;
+    line-height: 32px;
 }
 .profile-info-form .form-group input{
   /*font-size: 18px !important;*/
@@ -21137,7 +21129,7 @@ img.file-image-inner {
 button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.add-blue {
     background: #4255b6 !important;
     border: 1px solid #3f52b5 !important;
-    padding: 10px 25px 5px 25px!important;
+    padding: 10px 25px 5px 33px!important;
     line-height: 22px !important;
     color: #fff !important;
     font-weight: 500 !important;
@@ -21185,7 +21177,8 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.ad
 
 .MuiTypography-h2 {
     font-size: 16px !important;
-    word-break: break-word !important;
+    font-weight: 500 !important;
+    word-break: break-word !important
 }
 
 /*button.btn.btn-primary.btn-block.btn-flat:hover {*/
@@ -21210,7 +21203,7 @@ MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault img{
 
 }
 .YXpgCrxt3SsvR7HRLebVh {
-    height: 400px !important;
+    height: 350px !important;
 }
 
 button.MuiButtonBase-root.MuiButton-root.AccountProfile-uploadButton-118.MuiButton-text.MuiButton-textPrimary .blue-butn{
@@ -21225,11 +21218,6 @@ btn-primary:hover, btn-primary:active, btn-primary:focus, div.google button:hove
     border-color: #e44753 !important;
 }
 
-.col-md-12.my-content {
-    overflow: hidden;
-    max-height: calc(100vh - 570px);
-    min-height: 300px;
-}
 .col-md-12.my-content:hover {
     overflow-y: auto;
 }
@@ -21318,20 +21306,95 @@ span.btn-group-lg {
     height: 100% !important;
 }
 
-.main-footer {
-    margin: auto;
-    text-align: center;
-    bottom: 0;
-    width: 100%;
-    z-index: 99999;
-}
 
+/*20-06-2019*/
 
 .logout-outer  {
     width: 100%;
-    background-color: #dfe0e0;
     margin-bottom: 0;
     margin-left: -15px;
     padding-left: 15px;
-    z-index: 999999999999999999;
+}
+.logout-outer {
+    position: absolute;
+    margin-bottom: 5px;
+    bottom: 90px;
+    left: 0;
+    font-size: 36px;
+    color: black;
+    width: 255px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+.left-footer {
+    font-size: 13px;
+    margin-bottom: 0;
+    position: absolute;
+    margin-bottom: 5px;
+    bottom: 0px;
+    font-size: 45px;
+    background-color: #868686;
+    color: #fff;
+    margin-left: -15px;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 0;
+}
+.PortletFooter-root-203 {
+    padding-bottom: 16px !important;
+}
+.CustomPaper-root-120 {
+    border-radius: 6px !important;
+    box-shadow: 1px 1px 15px 2px #9c9c9c29 !important;
+}
+.MuiButton-label label {
+    font-weight: 500 !important;
+}
+.MuiTypography-body1 {
+    line-height: 2.5 !important;
+
+}
+.logout-outer:hover {
+    cursor: pointer;
+    background-color: #efefef;
+    border-radius: 4px;
+}
+.user-panel>.image>img {
+    min-height: 50px !important;
+    min-width: 50px !important;
+    height: auto !important;
+}
+.col-md-12.my-content {
+    overflow: hidden;
+    max-height: calc(100vh - 570px) !important;
+    min-height: calc(50vh - 20px) !important;
+}
+button.btn.btn-danger.bmd-btn-fab:hover {
+    border: 1px solid #dd4a39 !important;
+    box-shadow: 2px 2px 11px 2px #a7a7a7d1 !important;
+}
+.logout-form .btn.btn-secondary {
+    background-color: transparent !important;
+    border: 1px solid #d83946 !important;
+    color: #b91f2c !important;
+}
+.logout-form .btn:active:focus, .btn:focus {
+    outline: 1px solid #d83946 !important;
+}
+.sidebar .user-panel {
+    background-color: #ffffff !important;
+    padding: 12px 10px 10px 5px !important;
+    min-height: 50px !important;
+    height: 100px !important;
+}
+
+.user-panel>.info>p, .user-panel>.info>a {
+    white-space: normal !important;
+}
+.AccountProfile-locationText-544 {
+    word-break: break-all !important;
+    color: #000 !important;
+}
+.wrapper .main-sidebar {
+    box-shadow: 1px 1px 14px 2px #9c9c9c47;
 }

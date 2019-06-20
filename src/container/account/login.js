@@ -13,8 +13,8 @@ import {
     switchPhoneToVerifyOtp
 } from '../../actions/account/index';
 import {notify} from '../../components/app/notification';
-import PhoneNumberForm from "../../components/account/login/phone-number-form";
-import VerifyOtpForm from "../../components/account/login/verify-otp";
+// import PhoneNumberForm from "../../components/account/login/phone-number-form";
+// import VerifyOtpForm from "../../components/account/login/verify-otp";
 import Spinner from "../../components/app/spinner/spinner";
 import {authApi} from '../../actions/app/index';
 import Facebook from "../../components/account/login/facebook";

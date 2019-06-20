@@ -54,16 +54,16 @@ class AccountProfile extends Component {
             this.setState({profile: 0});
             let profile = 0;
             if (!!this.props.profile.email) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!this.props.profile.name) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!this.props.profile.mobile_data) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!this.props.profile.photo) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             this.setState({profile});
         }
@@ -74,16 +74,16 @@ class AccountProfile extends Component {
             this.setState({profile: 0});
             let profile = 0;
             if (!!nextProps.profile.email) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!nextProps.profile.name) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!nextProps.profile.mobile_data) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             if (!!nextProps.profile.photo) {
-                profile = profile + 20;
+                profile = profile + 25;
             }
             this.setState({profile});
         }
@@ -104,7 +104,7 @@ class AccountProfile extends Component {
                         <div className={classes.info} style={{width: '50%', float: 'left'}}>
                             <Typography variant="h2">{this.props.profile.name}</Typography>
                             <Typography
-                                className={classes.locationText}
+                                className="AccountProfile-locationText-544"
                                 variant="body1">{this.props.profile.email}
                             </Typography>
                             <Typography
@@ -118,8 +118,7 @@ class AccountProfile extends Component {
                         {/*    src={this.props.profile.photo}*/}
                         {/*/>*/}
 
-                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefaul t">
-
+                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault" style={{textAlign: "right"}}>
                             <img
                                 className="img-circle"
                                 style={{
