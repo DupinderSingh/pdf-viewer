@@ -16,7 +16,7 @@ import {notify} from '../../components/app/notification';
 // import PhoneNumberForm from "../../components/account/login/phone-number-form";
 // import VerifyOtpForm from "../../components/account/login/verify-otp";
 import Spinner from "../../components/app/spinner/spinner";
-import {authApi} from '../../actions/app/index';
+import {authApi, removeBlurEffect} from '../../actions/app/index';
 import Facebook from "../../components/account/login/facebook";
 import Google from "../../components/account/login/google";
 import AccountKit from 'react-facebook-account-kit';
@@ -205,7 +205,10 @@ class Login extends Component {
         return (
             <div>
                 <div id="myPhoto">
-                    <img src={require("../../images/background.jpg")} alt="registration-background"/>
+                    <img className="blur-image"
+                         onLoad={removeBlurEffect.bind(this)}
+                         src={require("../../images/background.jpg")}
+                         alt="registration-background"/>
                 </div>
                 {/*<video autoplay muted loop id="myVideo">*/}
                 {/*    <source src={require("../../videos/pdf_video.mp4")} type="video/mp4"/>*/}

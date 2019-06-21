@@ -55,3 +55,8 @@ export function refreshId() {
     }
 }
 
+export function removeBlurEffect(e) {
+    e.target.classList.add("normal-image");
+    e.target.classList.remove("blur-image");
+
+}

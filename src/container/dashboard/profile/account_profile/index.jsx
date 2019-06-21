@@ -103,10 +103,10 @@ class AccountProfile extends Component {
                 <PortletContent>
                     <div className={classes.details}>
                         <div className={classes.info} style={{width: '50%', float: 'left'}}>
-                            <Typography variant="h2">{this.props.noOnChangeProfile.name}</Typography>
+                            <Typography variant="h2">{this.props.name}</Typography>
                             <Typography
                                 className="AccountProfile-locationText-544"
-                                variant="body1">{this.props.noOnChangeProfile.email}
+                                variant="body1">{this.props.email}
                             </Typography>
                             <Typography
                                 className={classes.dateText}
@@ -188,7 +188,7 @@ const mapStateToProps = (state) => {
         updateProfilePhotoMessage,
         edit
     } = state.profileReducer;
-    const {user_id, name, mobile_data, photo, email} = profile;
+    const {user_id, name, mobile_data, photo, email} = noOnChangeProfile;
     return {
         noOnChangeProfile, profile,
         user_id,

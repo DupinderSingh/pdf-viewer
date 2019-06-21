@@ -2,17 +2,21 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Viewer from 'react-viewer';
-import * as scroll from 'zenscroll';
+// import * as scroll from 'zenscroll';
+import 'intersection-observer'
 import 'react-viewer/dist/index.css';
 import 'react-image-lightbox/style.css';
 import {displayImage, getPdfFolderStructure, updateFile} from "../../actions/dashboard";
 import Error from "../app/error";
 import PreviewFileDialogBox from "../dashboard/preview-file-dialog";
 import Loader from "../app/spinner/loader";
+import coverImage from '../../images/background.jpg';
+import {removeBlurEffect} from "../../actions/app";
 
 class FolderFile extends Component {
     componentDidMount() {
-        this.props.dispatch(getPdfFolderStructure(false, this.props.commonPath, false, ""))
+        this.props.dispatch(getPdfFolderStructure(false, this.props.commonPath, false, ""));
+
     }
 
     refreshDocuments() {
@@ -104,12 +108,12 @@ class FolderFile extends Component {
                     </div>
                 }
                 <div className="loading-outer">
-                    {
-                        this.props.getPdfFolderStructurePageLoading &&
-                        <div className="folder-file-loading">
-                            <Loader isPageLoading={true}/>
-                        </div>
-                    }
+                    {/*{*/}
+                    {/*    this.props.getPdfFolderStructurePageLoading &&*/}
+                    {/*    <div className="folder-file-loading">*/}
+                    {/*        <Loader isPageLoading={true}/>*/}
+                    {/*    </div>*/}
+                    {/*}*/}
                     {
                         ((this.props.getPdfFolderStructureStatus === 200) && (!this.props.getPdfFolderStructureError)) &&
                         <div className="folder-file">
@@ -137,17 +141,19 @@ class FolderFile extends Component {
                                                                                 ) ?
                                                                                     (
                                                                                         <img
-                                                                                            className="folder-file-display-image"
+                                                                                            className={"folder-file-display-image blur-image"}
+                                                                                            onLoad={removeBlurEffect.bind(this)}
+                                                                                            onError={() => (this.src = require("../../images/corrupt-folder.png"))}
                                                                                             src={structure.value}
                                                                                             onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
-                                                                                            onError={() => (this.src = require("../../images/corrupt-folder.png"))}
                                                                                             alt={"folder pic"}
                                                                                         />
                                                                                     )
                                                                                     :
                                                                                     (
                                                                                         <img
-                                                                                            className="folder-file-display-image"
+                                                                                            className="folder-file-display-image blur-image"
+                                                                                            onLoad={removeBlurEffect.bind(this)}
                                                                                             src={require("../../images/folder.png")}
                                                                                             onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
 
@@ -159,7 +165,8 @@ class FolderFile extends Component {
                                                                             :
                                                                             (
                                                                                 <img
-                                                                                    className="folder-file-display-image"
+                                                                                    className="folder-file-display-image blur-image"
+                                                                                    onLoad={removeBlurEffect.bind(this)}
                                                                                     src={require("../../images/folder.png")}
                                                                                     onClick={() => this.getStructure(structure.type, false, this.props.commonPath + "/" + structure.currentPath)}
 
@@ -179,9 +186,10 @@ class FolderFile extends Component {
                                                                                    target="_blank"
                                                                                    rel="noopener noreferrer">
                                                                                     <img
-                                                                                        className="folder-file-display-image"
-                                                                                        src={require("../../images/pdf.png")}
+                                                                                        className="folder-file-display-image blur-image"
+                                                                                        onLoad={removeBlurEffect.bind(this)}
                                                                                         onError={() => (this.src = require("../../images/corrupt-file.png"))}
+                                                                                        src={require("../../images/pdf.png")}
                                                                                         alt={"file pic"}
                                                                                     />
                                                                                 </a>
@@ -189,10 +197,11 @@ class FolderFile extends Component {
                                                                             :
                                                                             (
                                                                                 <img
-                                                                                    className="folder-file-display-image"
+                                                                                    className="folder-file-display-image blur-image"
+                                                                                    onLoad={removeBlurEffect.bind(this)}
+                                                                                    onError={() => (this.src = require("../../images/corrupt-file.png"))}
                                                                                     src={structure.value}
                                                                                     onClick={() => this.updateImageVisible(true, structure.value.split(".")[structure.value.split(".").length - 1], structure.value)}
-                                                                                    onError={() => (this.src = require("../../images/corrupt-file.png"))}
                                                                                     data-toggle="filePreviewModal"
                                                                                     data-target="#previewFile"
                                                                                     data-backdrop={false}
@@ -218,7 +227,8 @@ class FolderFile extends Component {
                                                     this.props.directory.length === 0 &&
 
                                                     <div className="empty-display-image-outer" style={{cursor: "default", textAlign: "center", width: "100%"}}>
-                                                            <img className="empty-display-image"
+                                                            <img className="empty-display-image blur-image"
+                                                                 onLoad={removeBlurEffect.bind(this)}
                                                                  src={require("../../images/empty.png")}
                                                                  alt={"no documents found"}
                                                                  style={{cursor: "default"}}

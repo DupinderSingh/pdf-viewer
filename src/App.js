@@ -1,4 +1,4 @@
-import React, {Component, Suspense} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 // import {NotificationContainer} from 'react-notifications';
@@ -10,7 +10,7 @@ import MyAccount from './container/dashboard/profile/index';
 import {refreshId} from "./actions/app";
 import ReactNotification from "react-notifications-component";
 
-const Login = React.lazy(() => import('./container/account/login'));
+import Login from './container/account/login';
 
 let isAuthanticated = false;
 let refresh_interval = null;
@@ -99,15 +99,11 @@ class RouteComponent extends Component {
     render() {
         return (
             <div>
-                <Suspense fallback={<div className="lazy-loading-outer"><img className="lazy-loading-inner"
-                                                                             src={require("./images/background-lazy-100.jpg")}
-                                                                             alt="lazy-loading"/></div>}>
-                    <Switch>
-                        <ProtectedRoute exact path="/login" component={Login}/>
-                        <BodyWrapper props={this.props}/>
-                    </Switch>
-                    <ReactNotification ref={this.notificationDOMRef}/>
-                </Suspense>
+                <Switch>
+                    <ProtectedRoute exact path="/login" component={Login}/>
+                    <BodyWrapper props={this.props}/>
+                </Switch>
+                <ReactNotification ref={this.notificationDOMRef}/>
             </div>
         )
     }

@@ -21398,3 +21398,9 @@ button.btn.btn-danger.bmd-btn-fab:hover {
 .wrapper .main-sidebar {
     box-shadow: 1px 1px 14px 2px #9c9c9c47;
 }
+.blur-image {
+    filter: blur(8px);
+}
+.normal-image {
+    filter: blur(0px);
+}
