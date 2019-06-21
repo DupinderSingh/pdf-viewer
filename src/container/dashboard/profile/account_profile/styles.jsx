@@ -12,11 +12,10 @@ export default theme => ({
     color: theme.palette.text.secondary
   },
   avatar: {
-    marginLeft: 'auto',
+    margin: '0 auto',
     height: '110px',
     width: '110px',
-    flexShrink: 0,
-    flexGrow: 0
+    position: 'relative'
   },
   progressWrapper: {
     marginTop: theme.spacing.unit * 2,

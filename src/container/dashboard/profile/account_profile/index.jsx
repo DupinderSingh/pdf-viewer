@@ -7,7 +7,7 @@ import classNames from 'classnames';
 // Material components
 import {LinearProgress, Typography, withStyles} from '@material-ui/core';
 // Shared components
-import {Portlet, PortletContent, PortletFooter} from '../../../../components';
+import {Portlet, PortletContent} from '../../../../components';
 // Component styles
 import styles from './styles';
 import {checkValidation} from "../../../../actions/app";
@@ -87,7 +87,6 @@ class AccountProfile extends Component {
             }
             this.setState({profile});
         }
-        console.log(nextProps.noOnChangeProfile, "noOnChangeProfile...");
     }
 
     render() {
@@ -102,24 +101,7 @@ class AccountProfile extends Component {
             >
                 <PortletContent>
                     <div className={classes.details}>
-                        <div className={classes.info} style={{width: '50%', float: 'left'}}>
-                            <Typography variant="h2">{this.props.name}</Typography>
-                            <Typography
-                                className="AccountProfile-locationText-544"
-                                variant="body1">{this.props.email}
-                            </Typography>
-                            <Typography
-                                className={classes.dateText}
-                                variant="body1"
-                            >
-                            </Typography>
-                        </div>
-                        {/*<Avatar*/}
-                        {/*    className={classes.avatar}*/}
-                        {/*    src={this.props.profile.photo}*/}
-                        {/*/>*/}
-
-                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault" style={{textAlign: "right"}}>
+                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault">
                             <img
                                 className="img-circle"
                                 style={{
@@ -132,7 +114,20 @@ class AccountProfile extends Component {
                                 src={!!this.props.profile.photo ? this.props.profile.photo : require("../../../../images/avatar.png")}
                                 onError={() => this.src = require("../../../../images/avatar.png")}
                                 alt="User"/>
+                            <i className="fa fa-camera" aria-hidden="true"/>
 
+                        </div>
+                        <div className={classes.info} style={{width: '100%', textAlign: 'center', marginTop: "20px"}}>
+                            <Typography variant="h2">{this.props.name}</Typography>
+                            <Typography
+                                className="AccountProfile-locationText-544"
+                                variant="body1">{this.props.email}
+                            </Typography>
+                            {/*<Typography*/}
+                            {/*    className={classes.dateText}*/}
+                            {/*    variant="body1"*/}
+                            {/*>*/}
+                            {/*</Typography>*/}
                         </div>
                         <div className={classes.progressWrapper}>
                             <Typography variant="body1">Profile Completeness: {this.state.profile}%</Typography>
@@ -143,28 +138,28 @@ class AccountProfile extends Component {
                         </div>
                     </div>
                 </PortletContent>
-                <PortletFooter>
-                    <button
-                        style={{cursor: "pointer"}}
-                        className="MuiButtonBase-root MuiButton-root AccountProfile-uploadButton-363 MuiButton-text MuiButton-textPrimary add-blue"
-                        tabIndex="0" type="button"><span style={{cursor: "pointer"}} className="MuiButton-label"><span
-                        className="MuiButton-label"><label style={{cursor: "pointer"}} htmlFor="photo"
-                                                           className="blue-butn">Upload picture</label>
-                        <input type="file" id="photo" name="photo"
-                               style={{display: "none", cursor: "pointer"}}
-                               onChange={(e) => this.uploadPic(e, false)}/>
-                        </span>
-                        </span>
-                        <span
-                            className="MuiTouchRipple-root"></span></button>
+                {/*<PortletFooter>*/}
+                {/*    <button*/}
+                {/*        style={{cursor: "pointer"}}*/}
+                {/*        className="MuiButtonBase-root MuiButton-root AccountProfile-uploadButton-363 MuiButton-text MuiButton-textPrimary add-blue"*/}
+                {/*        tabIndex="0" type="button"><span style={{cursor: "pointer"}} className="MuiButton-label"><span*/}
+                {/*        className="MuiButton-label"><label style={{cursor: "pointer"}} htmlFor="photo"*/}
+                {/*                                           className="blue-butn">Upload picture</label>*/}
+                {/*        <input type="file" id="photo" name="photo"*/}
+                {/*               style={{display: "none", cursor: "pointer"}}*/}
+                {/*               onChange={(e) => this.uploadPic(e, false)}/>*/}
+                {/*        </span>*/}
+                {/*        </span>*/}
+                {/*        <span*/}
+                {/*            className="MuiTouchRipple-root"></span></button>*/}
 
-                    <button className="MuiButtonBase-root MuiButton-root MuiButton-text remove-red" tabIndex="0"
-                            type="button" onClick={(e) => this.uploadPic(e, true)}>
-                        <span className="MuiButton-label">Remove picture</span><span
-                        className="MuiTouchRipple-root"></span></button>
+                {/*    <button className="MuiButtonBase-root MuiButton-root MuiButton-text remove-red" tabIndex="0"*/}
+                {/*            type="button" onClick={(e) => this.uploadPic(e, true)}>*/}
+                {/*        <span className="MuiButton-label">Remove picture</span><span*/}
+                {/*        className="MuiTouchRipple-root"></span></button>*/}
 
-                </PortletFooter>
-                <ReactNotification ref={this.notificationDOMRef} />
+                {/*</PortletFooter>*/}
+                <ReactNotification ref={this.notificationDOMRef}/>
             </Portlet>
         );
     }

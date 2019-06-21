@@ -13,13 +13,13 @@ import {
     switchPhoneToVerifyOtp
 } from '../../actions/account/index';
 import {notify} from '../../components/app/notification';
-// import PhoneNumberForm from "../../components/account/login/phone-number-form";
-// import VerifyOtpForm from "../../components/account/login/verify-otp";
+import PhoneNumberForm from "../../components/account/login/phone-number-form";
+import VerifyOtpForm from "../../components/account/login/verify-otp";
 import Spinner from "../../components/app/spinner/spinner";
 import {authApi, removeBlurEffect} from '../../actions/app/index';
 import Facebook from "../../components/account/login/facebook";
 import Google from "../../components/account/login/google";
-import AccountKit from 'react-facebook-account-kit';
+// import AccountKit from 'react-facebook-account-kit';
 
 const AUTH_API = authApi();
 
@@ -42,22 +42,22 @@ class Login extends Component {
         }
     }
 
-    facebookKitResponse(resp) {
-        if (resp.status === "PARTIALLY_AUTHENTICATED") {
-            this.props.dispatch(loginAccount({
-                "name": "",
-                "mobile_data": "",
-                "email": "",
-                "profile_url": "",
-                "gmail_id": "",
-                "fb_id": "",
-                "unique_id": "",
-                "code": resp.code,
-                "type": "2"
-            }))
-        }
-
-    }
+    // facebookKitResponse(resp) {
+    //     if (resp.status === "PARTIALLY_AUTHENTICATED") {
+    //         this.props.dispatch(loginAccount({
+    //             "name": "",
+    //             "mobile_data": "",
+    //             "email": "",
+    //             "profile_url": "",
+    //             "gmail_id": "",
+    //             "fb_id": "",
+    //             "unique_id": "",
+    //             "code": resp.code,
+    //             "type": "2"
+    //         }))
+    //     }
+    //
+    // }
 
     componentWillMount() {
         document.title = "Login | Pdf Scanner";
@@ -242,31 +242,31 @@ class Login extends Component {
                                     </div>
                                 </div>
                                 <div className="card-body login-card-body">
-                                    {/*{*/}
-                                    {/*    this.props.switchPhoneToOtp &&*/}
-                                    {/*    <VerifyOtpForm/>*/}
-                                    {/*}*/}
-                                    {/*{*/}
-                                    {/*    !this.props.switchPhoneToOtp &&*/}
-                                    {/*    <PhoneNumberForm/>*/}
-                                    {/*}*/}
+                                    {
+                                        this.props.switchPhoneToOtp &&
+                                        <VerifyOtpForm/>
+                                    }
+                                    {
+                                        !this.props.switchPhoneToOtp &&
+                                        <PhoneNumberForm/>
+                                    }
                                     <div className="social-auth-links text-center mb-3">
                                         <Facebook responseFacebook={this.responseFacebook}/>
                                         <Google responseGoogle={this.responseGoogle}/>
-                                        <div className="login-number">
-                                            <AccountKit
-                                                appId={this.state.fb_appId}
-                                                loginType={this.state.fb_ak_loginType}
-                                                version={this.state.fb_ak_version}
-                                                onResponse={(resp) => this.facebookKitResponse(resp)}
-                                                csrf={this.state.fb_ak_csrf}
-                                                countryCode={this.state.fb_ak_countryCode}
-                                                phoneNumber={this.state.fb_ak_phoneNumber}
-                                                emailAddress={this.state.fb_ak_emailAddress}
-                                            >
-                                                {p => <button {...p}><i className="fa fa-phone" aria-hidden="true"></i> Sign in using Phone Number</button>}
-                                            </AccountKit>
-                                        </div>
+                                        {/*<div className="login-number">*/}
+                                        {/*    <AccountKit*/}
+                                        {/*        appId={this.state.fb_appId}*/}
+                                        {/*        loginType={this.state.fb_ak_loginType}*/}
+                                        {/*        version={this.state.fb_ak_version}*/}
+                                        {/*        onResponse={(resp) => this.facebookKitResponse(resp)}*/}
+                                        {/*        csrf={this.state.fb_ak_csrf}*/}
+                                        {/*        countryCode={this.state.fb_ak_countryCode}*/}
+                                        {/*        phoneNumber={this.state.fb_ak_phoneNumber}*/}
+                                        {/*        emailAddress={this.state.fb_ak_emailAddress}*/}
+                                        {/*    >*/}
+                                        {/*        {p => <button {...p}><i className="fa fa-phone" aria-hidden="true"></i> Sign in using Phone Number</button>}*/}
+                                        {/*    </AccountKit>*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
