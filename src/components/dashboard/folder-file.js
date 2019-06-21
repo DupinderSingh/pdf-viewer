@@ -35,12 +35,12 @@ class FolderFile extends Component {
         }
         if (!nextProps.getPdfFolderStructurePageLoading) {
             if (((!nextProps.getPdfFolderStructurePageLoading) && (nextProps.getPdfFolderStructureStatus === 200) && (!nextProps.getPdfFolderStructureError))) {
-                if (!!document.getElementById('myContent')) {
-                    document.getElementById('myContent').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-                scroll.toY(500);
+                // if (!!document.getElementById('myContent')) {
+                //     document.getElementById('myContent').scrollIntoView({
+                //         behavior: 'smooth'
+                //     });
+                // }
+                // scroll.toY(500);
                 if (!!document.getElementsByClassName("my-content")[0]) {
                     document.getElementsByClassName("my-content")[0].scrollTo(0, 0);
                 }

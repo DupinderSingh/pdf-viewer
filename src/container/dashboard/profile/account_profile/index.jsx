@@ -87,6 +87,7 @@ class AccountProfile extends Component {
             }
             this.setState({profile});
         }
+        console.log(nextProps.noOnChangeProfile, "noOnChangeProfile...");
     }
 
     render() {
@@ -102,10 +103,10 @@ class AccountProfile extends Component {
                 <PortletContent>
                     <div className={classes.details}>
                         <div className={classes.info} style={{width: '50%', float: 'left'}}>
-                            <Typography variant="h2">{this.props.profile.name}</Typography>
+                            <Typography variant="h2">{this.props.noOnChangeProfile.name}</Typography>
                             <Typography
                                 className="AccountProfile-locationText-544"
-                                variant="body1">{this.props.profile.email}
+                                variant="body1">{this.props.noOnChangeProfile.email}
                             </Typography>
                             <Typography
                                 className={classes.dateText}
@@ -176,7 +177,7 @@ AccountProfile.propTypes = {
 
 const mapStateToProps = (state) => {
     const {
-        profile, getProfilePageLoading, getProfileStatus, getProfileError, getProfileMessage,
+        noOnChangeProfile, profile, getProfilePageLoading, getProfileStatus, getProfileError, getProfileMessage,
         updateProfileInfoPageLoading,
         updateProfileInfoStatus,
         updateProfileInfoError,
@@ -189,7 +190,7 @@ const mapStateToProps = (state) => {
     } = state.profileReducer;
     const {user_id, name, mobile_data, photo, email} = profile;
     return {
-        profile,
+        noOnChangeProfile, profile,
         user_id,
         name,
         mobile_data,

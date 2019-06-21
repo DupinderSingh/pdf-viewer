@@ -75,9 +75,9 @@ class AccountDetails extends Component {
   }
   handleChange(e) {
     const target = e.target;
-    checkValidation(e);
     if (target.value === "") {
       target.required = false;
+      e.target.parentElement.classList.remove("has-error");
     } else {
       target.required = true;
       checkValidation(e);
@@ -89,9 +89,9 @@ class AccountDetails extends Component {
       const allElements = document.querySelectorAll(".profile-info-form .form-group input");
       for (let i = 0; i < allElements.length; i++) {
         if (allElements[i].value === "") {
-          allElements[i].required = false
+          allElements[i].required = false;
         } else {
-          allElements[i].required = true
+          allElements[i].required = true;
         }
       }
       if (e.target.checkValidity()) {

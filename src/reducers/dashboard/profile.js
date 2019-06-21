@@ -16,6 +16,13 @@ const initialState = {
         "photo": "",
         "email": ""
     },
+    noOnChangeProfile: {
+        "user_id": "",
+        "name": "",
+        "mobile_data": "",
+        "photo": "",
+        "email": ""
+    },
     getProfilePageLoading: false,
     getProfileStatus: "",
     getProfileError: "",
@@ -50,6 +57,7 @@ export default function profileReducer(state = initialState, action) {
                     getProfileStatus: 200,
                     getProfileError: false,
                     profile: action.response.data.profile,
+                    noOnChangeProfile: action.response.data.profile,
                     getProfileMessage: "",
                     edit: false
                 });
@@ -59,6 +67,13 @@ export default function profileReducer(state = initialState, action) {
                     getProfileStatus: 200,
                     getProfileError: true,
                     profile: {
+                        "user_id": "",
+                        "name": "",
+                        "mobile_data": "",
+                        "photo": "",
+                        "email": ""
+                    },
+                    noOnChangeProfile: {
                         "user_id": "",
                         "name": "",
                         "mobile_data": "",
@@ -80,6 +95,13 @@ export default function profileReducer(state = initialState, action) {
                     "photo": "",
                     "email": ""
                 },
+                noOnChangeProfile: {
+                    "user_id": "",
+                    "name": "",
+                    "mobile_data": "",
+                    "photo": "",
+                    "email": ""
+                },
                 getProfileMessage: action.response.data.message
             });
         case CLEAR_PROFILE_API_RESPONSE:
@@ -91,6 +113,13 @@ export default function profileReducer(state = initialState, action) {
                 updateProfileInfoError: "",
                 updateProfileInfoMessage: "",
                 profile: {
+                    "user_id": "",
+                    "name": "",
+                    "mobile_data": "",
+                    "photo": "",
+                    "email": ""
+                },
+                noOnChangeProfile: {
                     "user_id": "",
                     "name": "",
                     "mobile_data": "",
