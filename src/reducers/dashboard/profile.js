@@ -11,6 +11,7 @@ import {
 const initialState = {
     profile: {
         "user_id": "",
+        "country": "",
         "name": "",
         "mobile_data": "",
         "photo": "",
@@ -18,6 +19,7 @@ const initialState = {
     },
     noOnChangeProfile: {
         "user_id": "",
+        "country": "",
         "name": "",
         "mobile_data": "",
         "photo": "",
@@ -68,6 +70,7 @@ export default function profileReducer(state = initialState, action) {
                     getProfileError: true,
                     profile: {
                         "user_id": "",
+                        "country": "",
                         "name": "",
                         "mobile_data": "",
                         "photo": "",
@@ -75,6 +78,7 @@ export default function profileReducer(state = initialState, action) {
                     },
                     noOnChangeProfile: {
                         "user_id": "",
+                        "country": "",
                         "name": "",
                         "mobile_data": "",
                         "photo": "",
@@ -90,6 +94,7 @@ export default function profileReducer(state = initialState, action) {
                 getProfileError: true,
                 profile: {
                     "user_id": "",
+                    "country": "",
                     "name": "",
                     "mobile_data": "",
                     "photo": "",
@@ -97,6 +102,7 @@ export default function profileReducer(state = initialState, action) {
                 },
                 noOnChangeProfile: {
                     "user_id": "",
+                    "country": "",
                     "name": "",
                     "mobile_data": "",
                     "photo": "",
@@ -114,6 +120,7 @@ export default function profileReducer(state = initialState, action) {
                 updateProfileInfoMessage: "",
                 profile: {
                     "user_id": "",
+                    "country": "",
                     "name": "",
                     "mobile_data": "",
                     "photo": "",
@@ -121,6 +128,7 @@ export default function profileReducer(state = initialState, action) {
                 },
                 noOnChangeProfile: {
                     "user_id": "",
+                    "country": "",
                     "name": "",
                     "mobile_data": "",
                     "photo": "",

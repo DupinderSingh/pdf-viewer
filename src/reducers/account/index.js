@@ -1,6 +1,10 @@
 import {
     CHANGE_LOGIN_FORM,
+    CLEAR_LOGOUT_API_RESPONSE,
     GENERATE_QR_CODE_PAGE_LOADING,
+    GET_COUNTRY_CODE_FAILURE,
+    GET_COUNTRY_CODE_REQUEST,
+    GET_COUNTRY_CODE_SUCCESS,
     IP_ADDRESS_FAILURE,
     IP_ADDRESS_REQUEST,
     IP_ADDRESS_SUCCESS,
@@ -8,10 +12,9 @@ import {
     LOGIN_ACCOUNT_REQUEST,
     LOGIN_ACCOUNT_SUCCESS,
     LOGIN_SUCCESS,
+    LOGOUT_ACCOUNT_FAILURE,
     LOGOUT_ACCOUNT_REQUEST,
     LOGOUT_ACCOUNT_SUCCESS,
-    LOGOUT_ACCOUNT_FAILURE,
-    CLEAR_LOGOUT_API_RESPONSE,
     LOGOUT_SUCCESS,
     SAVE_QR_CODE,
     SEND_OTP_FAILURE,
@@ -25,6 +28,7 @@ const initialState = {
         isAuthenticated: localStorage.getItem("id") ? true : false
     },
     phoneNumber: "",
+    country: "",
     phoneNumberPageLoading: false,
     phoneNumberStatus: "",
     phoneNumberError: "",
@@ -62,6 +66,7 @@ export default function accountReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 otp: action.newState.otp,
                 phoneNumber: action.newState.phoneNumber,
+                country: action.newState.country,
                 phoneNumberStatus: "",
                 phoneNumberError: "",
                 phoneNumberMessage: "",
@@ -172,6 +177,21 @@ export default function accountReducer(state = initialState, action) {
                 ipAddress: "",
                 ipAddressStatus: action.response.status,
                 ipAddressError: true
+            });
+        case GET_COUNTRY_CODE_REQUEST:
+            return Object.assign({}, state, {
+                getCountryCodePageLoading: true,
+            });
+        case GET_COUNTRY_CODE_SUCCESS:
+            console.log(action.response.data.country_code.toLowerCase(), "response from server............");
+            return Object.assign({}, state, {
+                getCountryCodePageLoading: false,
+                country: action.response.data.error ? "" : action.response.data.country_code.toLowerCase()
+            });
+        case GET_COUNTRY_CODE_FAILURE:
+            return Object.assign({}, state, {
+                getCountryCodePageLoading: false,
+                country: ""
             });
 
 

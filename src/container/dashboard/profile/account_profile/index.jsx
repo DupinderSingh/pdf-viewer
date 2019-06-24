@@ -101,7 +101,8 @@ class AccountProfile extends Component {
             >
                 <PortletContent>
                     <div className={classes.details}>
-                        <div className="MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault">
+                        <div className="user-profile MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault">
+                            {/*<span className="image-outer">*/}
                             <img
                                 className="img-circle"
                                 style={{
@@ -115,6 +116,9 @@ class AccountProfile extends Component {
                                 onError={() => this.src = require("../../../../images/avatar.png")}
                                 alt="User"/>
                             <i className="fa fa-camera" aria-hidden="true"/>
+                            <i id="cross" className="fa fa-times-circle" aria-hidden="true"/>
+                            {/*<i className="fa fa-times-circle" aria-hidden="true"/>*/}
+                            {/*</span>*/}
 
                         </div>
                         <div className={classes.info} style={{width: '100%', textAlign: 'center', marginTop: "20px"}}>

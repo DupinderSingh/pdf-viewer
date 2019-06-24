@@ -13,11 +13,13 @@ import {
     SEND_OTP_SUCCESS,
     SWITCH_PHONE_TO_VERIFY_OTP,
     IP_ADDRESS_REQUEST, IP_ADDRESS_SUCCESS, IP_ADDRESS_FAILURE,
-    LOGOUT_ACCOUNT_REQUEST, LOGOUT_ACCOUNT_SUCCESS, LOGOUT_ACCOUNT_FAILURE, CLEAR_LOGOUT_API_RESPONSE
+    LOGOUT_ACCOUNT_REQUEST, LOGOUT_ACCOUNT_SUCCESS, LOGOUT_ACCOUNT_FAILURE, CLEAR_LOGOUT_API_RESPONSE,
+    GET_COUNTRY_CODE_REQUEST, GET_COUNTRY_CODE_SUCCESS, GET_COUNTRY_CODE_FAILURE
 } from '../../types/account';
 import {POST_WITHOUT_TOKEN} from "../../middleware/without_token/post-api";
 import {authApi} from '../app/index';
 import {CALL_POST_API} from "../../middleware/token/post-api";
+import {GET_API_WITHOUT_TOKEN} from "../../middleware/without_token/get-api";
 
 const AUTH_API = authApi();
 
@@ -31,6 +33,16 @@ export function getIpAddress(body) {
             endpoint: AUTH_API + '/ip-address',
             types: [IP_ADDRESS_REQUEST, IP_ADDRESS_SUCCESS, IP_ADDRESS_FAILURE],
             body: JSON.stringify(body)
+        }
+    }
+}
+
+
+export function getCountryCode() {
+    return {
+        [GET_API_WITHOUT_TOKEN]: {
+            endpoint: AUTH_API + '/country-code',
+            types: [GET_COUNTRY_CODE_REQUEST, GET_COUNTRY_CODE_SUCCESS, GET_COUNTRY_CODE_FAILURE]
         }
     }
 }

@@ -7,7 +7,7 @@ import {checkValidation} from "../../../actions/app";
 
 class VerifyOtpForm extends Component {
     componentWillMount() {
-        this.props.dispatch(changeLoginForm({otp: "", phoneNumber: this.props.phoneNumber}));
+        this.props.dispatch(changeLoginForm({otp: "", phoneNumber: this.props.phoneNumber, country: this.props.country}));
     }
 
     componentDidMount() {
@@ -20,7 +20,7 @@ class VerifyOtpForm extends Component {
     handleChange(e) {
         const target = e.target.value;
         checkValidation(e);
-        this.props.dispatch(changeLoginForm({otp: Number(target), phoneNumber: this.props.phoneNumber}))
+        this.props.dispatch(changeLoginForm({otp: Number(target), phoneNumber: this.props.phoneNumber, country: this.props.country}))
     }
 
     goBack() {
@@ -31,8 +31,10 @@ class VerifyOtpForm extends Component {
         e.preventDefault();
         const self = this.props;
         if (e.target.checkValidity()) {
+            console.log(self.country)
             self.dispatch(loginAccount({
                 "mobile_data": self.phoneNumber,
+                "country": self.country,
                 "otp": self.otp,
                 "fb_id":"",
                 "gmail_id":"",
@@ -87,12 +89,12 @@ class VerifyOtpForm extends Component {
 const mapStateToProps = (state) => {
     const {
         auth,
-        otp, phoneNumber
+        otp, phoneNumber, country
     } = state.accountReducer;
     const {isAuthenticated} = auth;
     return {
         isAuthenticated,
-        otp, phoneNumber
+        otp, phoneNumber, country
     }
 };
 export default withRouter(connect(mapStateToProps)(VerifyOtpForm))

@@ -30,6 +30,7 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "3.0.1",
     "react-spinners": "^0.5.4",
+    "react-telephone-input": "^4.73.4",
     "react-viewer": "^2.9.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",

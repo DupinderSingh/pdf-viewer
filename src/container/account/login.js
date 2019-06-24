@@ -6,7 +6,7 @@ import ReactNotification from "react-notifications-component";
 import Pusher from 'pusher-js';
 import {
     changeLoginForm,
-    generateQrCodeLoading,
+    generateQrCodeLoading, getCountryCode,
     getIpAddress,
     login,
     loginAccount,
@@ -62,7 +62,8 @@ class Login extends Component {
     componentWillMount() {
         document.title = "Login | Pdf Scanner";
         this.props.dispatch(switchPhoneToVerifyOtp(false));
-        this.props.dispatch(getIpAddress({}))
+        this.props.dispatch(getIpAddress({}));
+        this.props.dispatch(getCountryCode());
     }
 
 
@@ -139,11 +140,11 @@ class Login extends Component {
     componentDidMount() {
         const thi = this;
         const self = this.props;
-        self.dispatch(changeLoginForm({otp: "", phoneNumber: ""}));
-        const phone_number = document.getElementsByName("phone_number")[0];
-        if (!!phone_number) {
-            phone_number.focus();
-        }
+        self.dispatch(changeLoginForm({otp: "", phoneNumber: "", country: ""}));
+        // const phone_number = document.getElementsByName("phone_number")[0];
+        // if (!!phone_number) {
+        //     phone_number.focus();
+        // }
         let video = document.getElementById("myVideo");
         if (video !== null) {
             video.play();
@@ -170,23 +171,24 @@ class Login extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         if (this.props.switchPhoneToOtp !== nextProps.switchPhoneToOtp) {
             if (nextProps.switchPhoneToOtp) {
-                nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: nextProps.phoneNumber}));
+                nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: nextProps.phoneNumber, country: nextProps.country}));
             } else {
-                nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: ""}));
+                nextProps.dispatch(getCountryCode());
+                nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: "", country: ""}));
             }
         }
         if (nextProps.loginAccountStatus !== "" && nextProps.loginAccountError !== "") {
             if (nextProps.loginAccountStatus === 200) {
                 if (!nextProps.loginAccountError) {
-                    nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: ""}));
+                    nextProps.dispatch(changeLoginForm({otp: "", phoneNumber: "", country: ""}));
                     notify(this.notificationDOMRef, 'success', nextProps.loginAccountMessage);
                     nextProps.dispatch(login());
                 } else {
-                    nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
+                    nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber, country: nextProps.country}));
                     notify(this.notificationDOMRef, 'danger', nextProps.loginAccountMessage);
                 }
             } else {
-                nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber}));
+                nextProps.dispatch(changeLoginForm({otp: nextProps.otp, phoneNumber: nextProps.phoneNumber, country: nextProps.country}));
                 notify(this.notificationDOMRef, 'danger', nextProps.loginAccountMessage);
             }
         }
@@ -284,7 +286,7 @@ const
         const {
             auth,
             switchPhoneToOtp,
-            generateQrCode, generateQrCodePageLoading, generateQrCodeMsg, generateQrCodeStatus, scanQrCodePageLoading, scanQrCodeMsg, scanQrCodeStatus,
+            generateQrCode, country, generateQrCodePageLoading, generateQrCodeMsg, generateQrCodeStatus, scanQrCodePageLoading, scanQrCodeMsg, scanQrCodeStatus,
             phoneNumber, phoneNumberError, phoneNumberPageLoading, phoneNumberStatus, phoneNumberMessage,
             loginAccountError, loginAccountPageLoading, loginAccountStatus, loginAccountMessage,
             ipAddressPageLoading, ipAddress, ipAddressStatus, ipAddressError
@@ -300,7 +302,7 @@ const
             scanQrCodePageLoading,
             scanQrCodeMsg,
             scanQrCodeStatus,
-            phoneNumber, phoneNumberError, phoneNumberPageLoading, phoneNumberStatus, phoneNumberMessage,
+            phoneNumber, country, phoneNumberError, phoneNumberPageLoading, phoneNumberStatus, phoneNumberMessage,
             loginAccountError, loginAccountPageLoading, loginAccountStatus, loginAccountMessage,
             ipAddressPageLoading, ipAddress, ipAddressStatus, ipAddressError
         }

@@ -1,13 +1,13 @@
 /**
  * Created by Dupnder on 11/01/19.
  */
-import {LOGOUT_SUCCESS} from "../../types/account/index";
 
 let Symbol = require('es6-symbol');
 
-const config ={
+const config = {
     method: "GET"
 };
+
 async function getWithoutToken(endpoint) {
     try {
         let response = await fetch(endpoint, config);
@@ -20,14 +20,12 @@ async function getWithoutToken(endpoint) {
                     }, status: response.status
                 })
             })
-        }
-        else {
+        } else {
             return response.json().then(data =>
                 ({data, status: response.status})
             )
         }
-    }
-    catch (e) {
+    } catch (e) {
         return ({data: {error: true, message: "Internal Server Error"}, status: 500})
     }
 }
@@ -35,8 +33,7 @@ async function getWithoutToken(endpoint) {
 function isValidJSON(data) {
     try {
         JSON.parse(data);
-    }
-    catch (e) {
+    } catch (e) {
         return false
     }
     return true
@@ -54,25 +51,18 @@ export default store => next => action => {
     const [requestType, successType, errorType] = types;
     return (next({type: requestType}), getWithoutToken(endpoint).then(
         response => {
-            if (response.status === 401) {
+            if (response.status === 200) {
                 return next({
                     response,
-                    type: LOGOUT_SUCCESS
+                    type: successType
+                })
+            } else {
+                return next({
+                    response,
+                    type: errorType
                 })
             }
-            else {
-                if (response.status === 200) {
-                    return next({
-                        response,
-                        type: successType
-                    })
-                } else {
-                    return next({
-                        response,
-                        type: errorType
-                    })
-                }
-            }
+
         }
     ))
 }
