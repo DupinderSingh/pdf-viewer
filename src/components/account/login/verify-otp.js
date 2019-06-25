@@ -31,7 +31,6 @@ class VerifyOtpForm extends Component {
         e.preventDefault();
         const self = this.props;
         if (e.target.checkValidity()) {
-            console.log(self.country)
             self.dispatch(loginAccount({
                 "mobile_data": self.phoneNumber,
                 "country": self.country,

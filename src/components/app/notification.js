@@ -1,5 +1,4 @@
 export const notify = (callFunction, type, message) => {
-    console.log(callFunction, "callFunction")
     if (!!callFunction) {
         callFunction.current.addNotification({
             title: "",

@@ -44,13 +44,13 @@ export function updateProfileInfo(body) {
     }
 }
 
-export function updateProfilePic(file, removePic) {
+export function updateProfilePic(file, removePic, country) {
     if (removePic) {
         return {
             [CALL_POST_API]: {
                 endpoint: AUTH_API + '/removeProfilePhoto',
                 types: [UPDATE_PROFILE_INFO_REQUEST, UPDATE_PROFILE_INFO_SUCCESS, UPDATE_PROFILE_INFO_FAILURE],
-                body: {id: localStorage.getItem("id")}
+                body: {id: localStorage.getItem("id"), country}
             }
         }
     } else {
@@ -64,6 +64,7 @@ export function updateProfilePic(file, removePic) {
             body: formData
         };
         formData.append('id', localStorage.getItem("id"));
+        formData.append('country', country);
         return dispatch => {
             dispatch(updateProfilePhotoRequest());
             fetch(AUTH_API + '/updateProfilePhoto', config)

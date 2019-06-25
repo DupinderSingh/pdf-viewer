@@ -184,7 +184,6 @@ export default function accountReducer(state = initialState, action) {
                 getCountryCodePageLoading: true,
             });
         case GET_COUNTRY_CODE_SUCCESS:
-            console.log(action.response.data.country_code.toLowerCase(), "response from server............");
             return Object.assign({}, state, {
                 getCountryCodePageLoading: false,
                 country: action.response.data.error ? "" : action.response.data.country_code.toLowerCase()

@@ -29,7 +29,7 @@ class AccountProfile extends Component {
         e.preventDefault();
         const target = e.target;
         if (removePic) {
-            this.props.dispatch(updateProfilePic({}, true));
+            this.props.dispatch(updateProfilePic({}, true, this.props.profile.country));
         } else {
             checkValidation(e);
             const photo = document.getElementById("photo").files[0];
@@ -37,11 +37,11 @@ class AccountProfile extends Component {
             this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {[target.name]: target.value})));
             switch (ext) {
                 case 'jpg':
-                    return this.props.dispatch(updateProfilePic(photo, false));
+                    return this.props.dispatch(updateProfilePic(photo, false, this.props.profile.country));
                 case 'jpeg':
-                    return this.props.dispatch(updateProfilePic(photo, false));
+                    return this.props.dispatch(updateProfilePic(photo, false, this.props.profile.country));
                 case 'png':
-                    return this.props.dispatch(updateProfilePic(photo, false));
+                    return this.props.dispatch(updateProfilePic(photo, false, this.props.profile.country));
                 default:
                     return notify(this.notificationDOMRef, 'danger', 'Only png, jpg, jpeg files supported.');
 

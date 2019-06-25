@@ -124,23 +124,19 @@ class AccountDetails extends Component {
     }
 
     checkOnlyCountryCode(mobile_data) {
-        console.log(mobile_data.toString(), "mobile data....");
         let isCountryCode = false;
         for (let i in countriesData) {
             if (countriesData[i].callingCodes.length > 0) {
                 if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
                     isCountryCode = true;
-                    console.log("yes country code exist..");
                 }
             }
         }
         phone = document.querySelector('input[type=tel]');
-        console.log("isCountryCode status =>>", isCountryCode);
         return isCountryCode
     }
 
     handleInputChange(telNumber, selectedCountry, e) {
-        console.log(selectedCountry, "selected country....");
         this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {
             mobile_data: telNumber,
             country: selectedCountry.iso2
@@ -150,19 +146,16 @@ class AccountDetails extends Component {
             phone.setCustomValidity('');
             phone.parentElement.parentElement.parentElement.classList.remove('has-error');
         } else {
-            console.log("not country code");
             phone.required = true;
             if (telNumber.length !== selectedCountry.format.length) {
-                console.log("invallid phone number");
                 phone.setCustomValidity('Enter valid phone number.');
                 phone.parentElement.parentElement.parentElement.classList.add('has-error');
             } else {
-                console.log("valid phone number....");
                 phone.setCustomValidity('');
                 phone.parentElement.parentElement.parentElement.classList.remove('has-error')
             }
         }
-        this.SetCaretAtEnd(phone)
+        phone.focus();
     }
 
     handleInputBlur(telNumber, selectedCountry) {
@@ -393,7 +386,6 @@ const mapStateToProps = (state) => {
     } = state.profileReducer;
     const {country} = state.accountReducer;
     const {user_id, name, mobile_data, photo, email} = profile;
-    console.log(profile, "profile................");
     return {
         profile,
         user_id,
