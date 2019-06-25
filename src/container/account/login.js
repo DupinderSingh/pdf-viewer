@@ -227,7 +227,8 @@ class Login extends Component {
                                     (this.props.generateQrCodePageLoading ||
                                         this.props.phoneNumberPageLoading ||
                                         this.props.ipAddressPageLoading ||
-                                        this.props.loginAccountPageLoading) &&
+                                        this.props.loginAccountPageLoading ||
+                                        this.props.getCountryCodePageLoading ) &&
                                     <Spinner isPageLoading={true}/>
                                 }
                                 <div className="social-auth-links text-center">
@@ -286,6 +287,7 @@ const
         const {
             auth,
             switchPhoneToOtp,
+            getCountryCodePageLoading,
             generateQrCode, country, generateQrCodePageLoading, generateQrCodeMsg, generateQrCodeStatus, scanQrCodePageLoading, scanQrCodeMsg, scanQrCodeStatus,
             phoneNumber, phoneNumberError, phoneNumberPageLoading, phoneNumberStatus, phoneNumberMessage,
             loginAccountError, loginAccountPageLoading, loginAccountStatus, loginAccountMessage,
@@ -293,6 +295,7 @@ const
         } = state.accountReducer;
         const {isAuthenticated} = auth;
         return {
+            getCountryCodePageLoading,
             isAuthenticated,
             switchPhoneToOtp,
             generateQrCode,

@@ -21428,7 +21428,7 @@ button.btn.btn-danger.bmd-btn-fab:hover {
     bottom: 8% !important;
     left: 41% !important;
     font-size: 22px !important;
-    display: none;
+    cursor: pointer;
 }
 .user-profile .fa-times-circle {
     position: absolute !important;
@@ -21436,7 +21436,7 @@ button.btn.btn-danger.bmd-btn-fab:hover {
     right: 2px !important;
     font-size: 28px !important;
     color: #d83a46;
-    opacity: 0.8;
+    cursor: pointer;
 }
 .AccountProfile-avatar-116 {
     text-align: center !important;
@@ -21536,13 +21536,10 @@ button.selected-flag:focus {
 }
 
 /* telephone code over*/
-
-.user-profile i{
-    display: none;
+.profile-edit {    border-radius: 50%;}
+.icons-edit {
+    opacity: 0;
 }
-.user-profile img:hover + .fa-camera {
-    display: block !important;
-}
-.user-profile img:hover i + i {
-    display: block !important;
+.profile-edit:hover .icons-edit {
+    opacity: 1 !important;
 }

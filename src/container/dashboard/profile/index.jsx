@@ -2,14 +2,10 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {withRouter} from 'react-router-dom';
 // Material helpers
-import {withStyles} from '@material-ui/core';
-
 // Material components
-import {Grid} from '@material-ui/core';
-
+import {Grid, withStyles} from '@material-ui/core';
 // Shared layouts
 import {Dashboard as DashboardLayout} from '../../../layouts';
-
 // Custom components
 import AccountDetails from './account_details/index';
 import AccountProfile from './account_profile/index';
@@ -37,7 +33,10 @@ class MyAccount extends Component {
         return (
             <div className="loading-outer">
                 {
-                    (this.props.getProfilePageLoading || this.props.updateProfileInfoPageLoading || this.props.updateProfilePhotoPageLoading) &&
+                    (this.props.getProfilePageLoading ||
+                        this.props.updateProfileInfoPageLoading ||
+                        this.props.updateProfilePhotoPageLoading ||
+                        this.props.getCountryCodePageLoading ) &&
                     <div className="folder-file-loading">
                         <Loader isPageLoading={true}/>
                     </div>
@@ -86,6 +85,7 @@ class MyAccount extends Component {
 }
 
 const mapStateToProps = (state) => {
+    const {getCountryCodePageLoading} = state.accountReducer;
     const {
         profile, edit, getProfilePageLoading, getProfileStatus, getProfileError, getProfileMessage,
         updateProfileInfoPageLoading,
@@ -99,6 +99,7 @@ const mapStateToProps = (state) => {
     } = state.profileReducer;
     const {user_id, name, mobile_data, photo, email} = profile;
     return {
+        getCountryCodePageLoading,
         edit,
         user_id,
         name,

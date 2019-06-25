@@ -28,6 +28,7 @@ const initialState = {
         isAuthenticated: localStorage.getItem("id") ? true : false
     },
     phoneNumber: "",
+    getCountryCodePageLoading: false,
     country: "",
     phoneNumberPageLoading: false,
     phoneNumberStatus: "",

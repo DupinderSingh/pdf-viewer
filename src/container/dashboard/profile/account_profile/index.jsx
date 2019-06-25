@@ -102,23 +102,28 @@ class AccountProfile extends Component {
                 <PortletContent>
                     <div className={classes.details}>
                         <div className="user-profile MuiAvatar-root AccountProfile-avatar-116 MuiAvatar-colorDefault">
-                            {/*<span className="image-outer">*/}
-                            <img
-                                className="img-circle"
-                                style={{
-                                    cursor: "pointer",
-                                    maxWidth: "110px",
-                                    borderRadius: "100%",
-                                    height: "100px",
-                                    width: "100px"
-                                }}
-                                src={!!this.props.profile.photo ? this.props.profile.photo : require("../../../../images/avatar.png")}
-                                onError={() => this.src = require("../../../../images/avatar.png")}
-                                alt="User"/>
-                            <i className="fa fa-camera" aria-hidden="true"/>
-                            <i id="cross" className="fa fa-times-circle" aria-hidden="true"/>
-                            {/*<i className="fa fa-times-circle" aria-hidden="true"/>*/}
-                            {/*</span>*/}
+                            <div className="profile-edit">
+                                <img
+                                    className="img-circle"
+                                    style={{
+                                        cursor: "pointer",
+                                        maxWidth: "110px",
+                                        borderRadius: "100%",
+                                        height: "100px",
+                                        width: "100px"
+                                    }}
+                                    src={!!this.props.profile.photo ? this.props.profile.photo : require("../../../../images/avatar.png")}
+                                    onError={() => this.src = require("../../../../images/avatar.png")}
+                                    alt="User"/>
+                                <input type="file" id="photo" name="photo"
+                                               style={{display: "none", cursor: "pointer"}}
+                                               onChange={(e) => this.uploadPic(e, false)}/>
+                                <span className="icons-edit">
+                                    <label htmlFor="photo" className="fa fa-camera" aria-hidden="true"></label>
+                                <i id="cross" onClick={(e) => this.uploadPic(e, true)} className="fa fa-times-circle" aria-hidden="true"/>
+                                    </span>
+                                {/*<i className="fa fa-times-circle" aria-hidden="true"/>*/}
+                            </div>
 
                         </div>
                         <div className={classes.info} style={{width: '100%', textAlign: 'center', marginTop: "20px"}}>

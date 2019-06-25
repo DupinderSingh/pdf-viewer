@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core';
 import {Portlet, PortletContent, PortletFooter, PortletHeader, PortletLabel} from '../../../../components';
 import styles from './styles';
-import {countries} from "../../../../actions/app";
+import {checkValidation, countries} from "../../../../actions/app";
 import Input from "../../../../components/app/input";
 import {changeProfileState, getProfile, updateProfileInfo} from "../../../../actions/dashboard/profile";
-import {checkValidation} from "../../../../actions/app";
 import {notify} from "../../../../components/app/notification";
 import ReactNotification from "react-notifications-component";
 import ReactTelInput from "react-telephone-input";
@@ -39,7 +38,7 @@ class AccountDetails extends Component {
                     if (!!countriesData[i].alpha2Code) {
                         if (countriesData[i].alpha2Code.toLowerCase() === nextProps.profile.country) {
                             if (countriesData[i].callingCodes.length > 0) {
-                                mobile_data = countriesData[i].callingCodes[0]
+                                mobile_data = "+" + countriesData[i].callingCodes[0];
                             }
                         }
                     }
@@ -48,6 +47,21 @@ class AccountDetails extends Component {
                     mobile_data,
                     country: nextProps.profile.country
                 })));
+                phone = document.querySelector('input[type=tel]');
+            }
+            if (this.props.mobile_data !== nextProps.mobile_data) {
+                let mobile_data = !!nextProps.mobile_data ? nextProps.mobile_data : "";
+                    for (let i in countriesData) {
+                        if (countriesData[i].callingCodes.length > 0) {
+                            if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                                nextProps.dispatch(changeProfileState(Object.assign(nextProps.profile, {
+                                    country: countriesData[i].alpha2Code.toLowerCase()
+                                })));
+                            }
+                        }
+
+                }
+                phone = document.querySelector('input[type=tel]');
             }
             if (nextProps.profile.country === "" && nextProps.mobile_data === "") {
                 nextProps.dispatch(getCountryCode());
@@ -109,30 +123,50 @@ class AccountDetails extends Component {
         }
     }
 
+    checkOnlyCountryCode(mobile_data) {
+        console.log(mobile_data.toString(), "mobile data....");
+        let isCountryCode = false;
+        for (let i in countriesData) {
+            if (countriesData[i].callingCodes.length > 0) {
+                if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                    isCountryCode = true;
+                    console.log("yes country code exist..");
+                }
+            }
+        }
+        phone = document.querySelector('input[type=tel]');
+        console.log("isCountryCode status =>>", isCountryCode);
+        return isCountryCode
+    }
+
     handleInputChange(telNumber, selectedCountry, e) {
+        console.log(selectedCountry, "selected country....");
         this.props.dispatch(changeProfileState(Object.assign(this.props.profile, {
             mobile_data: telNumber,
             country: selectedCountry.iso2
         })));
-        if (telNumber === "+") {
+        if (this.checkOnlyCountryCode(telNumber)) {
             phone.required = false;
             phone.setCustomValidity('');
             phone.parentElement.parentElement.parentElement.classList.remove('has-error');
         } else {
+            console.log("not country code");
             phone.required = true;
             if (telNumber.length !== selectedCountry.format.length) {
+                console.log("invallid phone number");
                 phone.setCustomValidity('Enter valid phone number.');
-                console.log(e, "add error");
                 phone.parentElement.parentElement.parentElement.classList.add('has-error');
             } else {
+                console.log("valid phone number....");
                 phone.setCustomValidity('');
                 phone.parentElement.parentElement.parentElement.classList.remove('has-error')
             }
         }
+        this.SetCaretAtEnd(phone)
     }
 
     handleInputBlur(telNumber, selectedCountry) {
-        if (telNumber === "+") {
+        if (this.checkOnlyCountryCode(telNumber)) {
             phone.required = false;
             phone.setCustomValidity('');
             phone.parentElement.parentElement.parentElement.classList.remove('has-error');
@@ -191,7 +225,7 @@ class AccountDetails extends Component {
                 allElements[i].required = true;
             }
         }
-        if (this.props.mobile_data === "+") {
+        if (this.checkOnlyCountryCode(this.props.mobile_data)) {
             phone.required = false;
             phoneNumber = 1;
         } else {

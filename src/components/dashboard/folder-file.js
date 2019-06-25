@@ -9,8 +9,8 @@ import 'react-image-lightbox/style.css';
 import {displayImage, getPdfFolderStructure, updateFile} from "../../actions/dashboard";
 import Error from "../app/error";
 import PreviewFileDialogBox from "../dashboard/preview-file-dialog";
-import Loader from "../app/spinner/loader";
-import coverImage from '../../images/background.jpg';
+// import Loader from "../app/spinner/loader";
+// import coverImage from '../../images/background.jpg';
 import {removeBlurEffect} from "../../actions/app";
 
 class FolderFile extends Component {
