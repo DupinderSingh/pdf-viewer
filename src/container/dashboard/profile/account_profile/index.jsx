@@ -10,7 +10,7 @@ import {LinearProgress, Typography, withStyles} from '@material-ui/core';
 import {Portlet, PortletContent} from '../../../../components';
 // Component styles
 import styles from './styles';
-import {checkValidation} from "../../../../actions/app";
+import {checkValidation, countries} from "../../../../actions/app";
 import {changeProfileState, updateProfilePic} from "../../../../actions/dashboard/profile";
 import {notify} from "../../../../components/app/notification";
 import {connect} from "react-redux";
@@ -60,7 +60,18 @@ class AccountProfile extends Component {
                 profile = profile + 25;
             }
             if (!!this.props.profile.mobile_data) {
-                profile = profile + 25;
+                const countriesData = countries();
+                let isCountryCode = false;
+                for (let i in countriesData) {
+                    if (countriesData[i].callingCodes.length > 0) {
+                        if (this.props.profile.mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                            isCountryCode = true;
+                        }
+                    }
+                }
+                if (!isCountryCode) {
+                    profile = profile + 25;
+                }
             }
             if (!!this.props.profile.photo) {
                 profile = profile + 25;
@@ -80,7 +91,18 @@ class AccountProfile extends Component {
                 profile = profile + 25;
             }
             if (!!nextProps.profile.mobile_data) {
-                profile = profile + 25;
+                const countriesData = countries();
+                let isCountryCode = false;
+                for (let i in countriesData) {
+                    if (countriesData[i].callingCodes.length > 0) {
+                        if (nextProps.profile.mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                            isCountryCode = true;
+                        }
+                    }
+                }
+                if (!isCountryCode) {
+                    profile = profile + 25;
+                }
             }
             if (!!nextProps.profile.photo) {
                 profile = profile + 25;
@@ -116,11 +138,12 @@ class AccountProfile extends Component {
                                     onError={() => this.src = require("../../../../images/avatar.png")}
                                     alt="User"/>
                                 <input type="file" id="photo" name="photo"
-                                               style={{display: "none", cursor: "pointer"}}
-                                               onChange={(e) => this.uploadPic(e, false)}/>
+                                       style={{display: "none", cursor: "pointer"}}
+                                       onChange={(e) => this.uploadPic(e, false)}/>
                                 <span className="icons-edit">
                                     <label htmlFor="photo" className="fa fa-camera" aria-hidden="true"></label>
-                                <i id="cross" onClick={(e) => this.uploadPic(e, true)} className="fa fa-times-circle" aria-hidden="true"/>
+                                <i id="cross" onClick={(e) => this.uploadPic(e, true)} className="fa fa-times-circle"
+                                   aria-hidden="true"/>
                                     </span>
                                 {/*<i className="fa fa-times-circle" aria-hidden="true"/>*/}
                             </div>

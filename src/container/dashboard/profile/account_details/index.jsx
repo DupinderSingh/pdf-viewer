@@ -51,14 +51,14 @@ class AccountDetails extends Component {
             }
             if (this.props.mobile_data !== nextProps.mobile_data) {
                 let mobile_data = !!nextProps.mobile_data ? nextProps.mobile_data : "";
-                    for (let i in countriesData) {
-                        if (countriesData[i].callingCodes.length > 0) {
-                            if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
-                                nextProps.dispatch(changeProfileState(Object.assign(nextProps.profile, {
-                                    country: countriesData[i].alpha2Code.toLowerCase()
-                                })));
-                            }
+                for (let i in countriesData) {
+                    if (countriesData[i].callingCodes.length > 0) {
+                        if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                            nextProps.dispatch(changeProfileState(Object.assign(nextProps.profile, {
+                                country: countriesData[i].alpha2Code.toLowerCase()
+                            })));
                         }
+                    }
 
                 }
                 phone = document.querySelector('input[type=tel]');
@@ -125,10 +125,12 @@ class AccountDetails extends Component {
 
     checkOnlyCountryCode(mobile_data) {
         let isCountryCode = false;
-        for (let i in countriesData) {
-            if (countriesData[i].callingCodes.length > 0) {
-                if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
-                    isCountryCode = true;
+        if (mobile_data !== null) {
+            for (let i in countriesData) {
+                if (countriesData[i].callingCodes.length > 0) {
+                    if (mobile_data.toString() === "+" + countriesData[i].callingCodes[0].toString()) {
+                        isCountryCode = true;
+                    }
                 }
             }
         }
