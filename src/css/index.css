@@ -21543,3 +21543,15 @@ button.selected-flag:focus {
 .profile-edit:hover .icons-edit {
     opacity: 1 !important;
 }
+.card-outer {
+    z-index: 999;
+    width: 430px;
+    height: 415px;
+    background-color: #ffffff54 !important;
+    position: absolute;
+    margin: 20px 15px 10px 15px;
+    border-radius: 4px;
+}
+@media screen and (max-width:768px){
+    .card-outer{display:none;}
+}

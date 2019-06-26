@@ -4,10 +4,12 @@ import {connect} from 'react-redux';
 import ReactTelInput from 'react-telephone-input';
 import 'react-telephone-input/lib/withStyles';
 // import Input from "../../app/input";
-import {changeLoginForm, sendOtp, switchPhoneToVerifyOtp} from "../../../actions/account";
+import {changeLoginForm, getCountryCode, sendOtp, switchPhoneToVerifyOtp} from "../../../actions/account";
+import {countries} from "../../../actions/app";
 // import {checkValidation} from "../../../actions/app";
 
 let phone = null;
+const countriesData = countries();
 
 class PhoneNumberForm extends Component {
     componentWillMount() {
@@ -20,7 +22,11 @@ class PhoneNumberForm extends Component {
     }
 
     handleInputChange(telNumber, selectedCountry, e) {
-        this.props.dispatch(changeLoginForm({otp: "", phoneNumber: telNumber, country: selectedCountry.iso2}));
+        this.props.dispatch(changeLoginForm({
+            otp: "",
+            phoneNumber: telNumber,
+            country: selectedCountry.iso2
+        }));
         if (telNumber.length !== selectedCountry.format.length) {
             phone.setCustomValidity('Enter valid phone number.');
             phone.parentElement.parentElement.parentElement.classList.add('has-error');
@@ -28,13 +34,19 @@ class PhoneNumberForm extends Component {
             phone.setCustomValidity('');
             phone.parentElement.parentElement.parentElement.classList.remove('has-error')
         }
+        phone.focus();
     }
 
-    handleInputBlur(telNumber, selectedCountry) {
-        if (telNumber.length === selectedCountry.format.length) {
-            phone.setCustomValidity('')
-        }
-    }
+    // handleInputBlur(telNumber, selectedCountry) {
+    //     if (telNumber.length === selectedCountry.format.length) {
+    //         phone.setCustomValidity('');
+    //         phone.parentElement.parentElement.parentElement.classList.remove('has-error');
+    //     } else {
+    //         phone.setCustomValidity('Enter valid phone number.');
+    //         phone.parentElement.parentElement.parentElement.classList.add('has-error');
+    //     }
+    //
+    // }
 
     SetCaretAtEnd(elem) {
         const elemLen = elem.value.length;
@@ -56,6 +68,7 @@ class PhoneNumberForm extends Component {
         this.SetCaretAtEnd(phone)
     }
 
+
     handleSubmit(e) {
         e.preventDefault();
         const self = this.props;
@@ -75,9 +88,40 @@ class PhoneNumberForm extends Component {
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
+
+        if (!!nextProps.country && nextProps.phoneNumber === "+") {
+            console.log(nextProps.country, nextProps.phoneNumber, "country , phone")
+            let phoneNumber = "";
+            for (let i in countriesData) {
+                if (!!countriesData[i].alpha2Code) {
+                    if (countriesData[i].alpha2Code.toLowerCase() === nextProps.country) {
+                        if (countriesData[i].callingCodes.length > 0) {
+                            console.log("+" + countriesData[i].callingCodes[0], "phoneeeeeeeeeeeeeeeeeeeeeeeeeee")
+                            phoneNumber = "+" + countriesData[i].callingCodes[0];
+                        }
+                    }
+                }
+            }
+            nextProps.dispatch(changeLoginForm({
+                otp: "",
+                phoneNumber,
+                country: nextProps.country
+            }));
+            phone = document.querySelector('input[type=tel]');
+        }
+
+        if (nextProps.country === "" && nextProps.phoneNumber === "") {
+            nextProps.dispatch(getCountryCode());
+        }
+
         if (this.props.country !== nextProps.country) {
             if (!!nextProps.country) {
-                window.setTimeout(()=> {
+                nextProps.dispatch(changeLoginForm({
+                    otp: "",
+                    phoneNumber: nextProps.phoneNumber,
+                    country: nextProps.country
+                }));
+                window.setTimeout(() => {
                     phone = document.querySelector('input[type=tel]');
                     phone.focus();
                 }, 100)
@@ -125,7 +169,7 @@ class PhoneNumberForm extends Component {
                                     value={this.props.phoneNumber}
                                     onChange={this.handleInputChange.bind(this)}
                                     onFocus={this.handleFocus.bind(this)}
-                                    onBlur={this.handleInputBlur.bind(this)}
+                                    // onBlur={this.handleInputBlur.bind(this)}
                                 />
                             </div>
                             <p className="with-error">Please enter valid Phone number.</p>
@@ -145,7 +189,7 @@ class PhoneNumberForm extends Component {
                                     value={this.props.phoneNumber}
                                     onChange={this.handleInputChange.bind(this)}
                                     onFocus={this.handleFocus.bind(this)}
-                                    onBlur={this.handleInputBlur.bind(this)}
+                                    // onBlur={this.handleInputBlur.bind(this)}
                                 />
                             </div>
                             <p className="with-error">Please enter valid Phone number.</p>

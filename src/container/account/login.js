@@ -222,6 +222,14 @@ class Login extends Component {
                             <img src={require("../../images/pdf-logo.png")} alt="logo"/>
                         </div>
                         <div className="login-box-body">
+                            {
+                                (this.props.generateQrCodePageLoading ||
+                                    this.props.phoneNumberPageLoading ||
+                                    this.props.ipAddressPageLoading ||
+                                    this.props.loginAccountPageLoading ||
+                                    this.props.getCountryCodePageLoading ) &&
+                                <div className="card-outer"></div>
+                            }
                             <div className="card">
                                 {
                                     (this.props.generateQrCodePageLoading ||

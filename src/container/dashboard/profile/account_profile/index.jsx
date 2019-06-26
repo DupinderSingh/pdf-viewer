@@ -69,6 +69,9 @@ class AccountProfile extends Component {
                         }
                     }
                 }
+                if (this.props.profile.mobile_data === "+") {
+                    isCountryCode = true;
+                }
                 if (!isCountryCode) {
                     profile = profile + 25;
                 }
@@ -99,6 +102,9 @@ class AccountProfile extends Component {
                             isCountryCode = true;
                         }
                     }
+                }
+                if (nextProps.profile.mobile_data === "+") {
+                    isCountryCode = true;
                 }
                 if (!isCountryCode) {
                     profile = profile + 25;
