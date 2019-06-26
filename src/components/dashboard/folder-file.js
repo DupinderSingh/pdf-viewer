@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Viewer from 'react-viewer';
-// import * as scroll from 'zenscroll';
 import 'intersection-observer'
 import 'react-viewer/dist/index.css';
 import 'react-image-lightbox/style.css';
@@ -44,7 +43,6 @@ class FolderFile extends Component {
                 //         behavior: 'smooth'
                 //     });
                 // }
-                // scroll.toY(500);
                 if (!!document.getElementsByClassName("my-content")[0]) {
                     document.getElementsByClassName("my-content")[0].scrollTo(0, 0);
                 }

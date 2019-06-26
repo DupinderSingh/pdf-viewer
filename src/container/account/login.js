@@ -124,6 +124,7 @@ class Login extends Component {
     }
 
     responseGoogle = response => {
+        console.log(response, "response.....");
         if (!!response.googleId) {
             this.props.dispatch(loginAccount({
                 "name": "",
