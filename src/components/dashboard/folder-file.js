@@ -11,6 +11,7 @@ import PreviewFileDialogBox from "../dashboard/preview-file-dialog";
 // import Loader from "../app/spinner/loader";
 // import coverImage from '../../images/background.jpg';
 import {removeBlurEffect} from "../../actions/app";
+import {getUserSessionId} from "../../services/user";
 
 class FolderFile extends Component {
     componentDidMount() {
@@ -19,7 +20,7 @@ class FolderFile extends Component {
     }
 
     refreshDocuments() {
-        this.props.dispatch(getPdfFolderStructure(false, "document/" + localStorage.getItem("id"), false, ""));
+        this.props.dispatch(getPdfFolderStructure(false, "document/" + getUserSessionId(), false, ""));
     }
 
     updateImageVisible(status, ext, value) {
@@ -34,7 +35,7 @@ class FolderFile extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.searchTemplate !== nextProps.searchTemplate) {
-            nextProps.dispatch(getPdfFolderStructure(false, "document/" + localStorage.getItem("id"), true, nextProps.searchTemplate))
+            nextProps.dispatch(getPdfFolderStructure(false, "document/" + getUserSessionId(), true, nextProps.searchTemplate))
         }
         if (!nextProps.getPdfFolderStructurePageLoading) {
             if (((!nextProps.getPdfFolderStructurePageLoading) && (nextProps.getPdfFolderStructureStatus === 200) && (!nextProps.getPdfFolderStructureError))) {

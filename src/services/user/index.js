@@ -1,6 +1,7 @@
 // Mock data
 import users from '../../data/users';
 import orders from '../../data/orders';
+const storage = require('node-sessionstorage');
 
 function lookupUser(user) {
   const userCopy = JSON.parse(JSON.stringify(user));
@@ -35,7 +36,6 @@ export const getUser = id => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const user = users.find(user => user.id === id);
-
       if (user) {
         resolve({
           user: lookupUser(user)
@@ -48,3 +48,7 @@ export const getUser = id => {
     }, 500);
   });
 };
+
+export function getUserSessionId() {
+  return storage.getItem('userId');
+}

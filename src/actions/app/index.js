@@ -1,6 +1,7 @@
 import history from '../../index';
 import {authApi as auth} from '../app/index';
 import {logout} from "../account";
+import {getUserSessionId} from "../../services/user";
 
 const AUTH_API = auth();
 
@@ -32,29 +33,29 @@ export function authApi() {
     return process.env.REACT_APP_AUTH_API
 }
 
-export function refreshId() {
-    // eslint-disable-next-line no-unused-vars
-    let status = "";
-    const config = {
-        method: "GET",
-        // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}
-    };
-    return dispatch => {
-        fetch(AUTH_API + '/refresh-api?id=' + localStorage.getItem("id"), config)
-            .then(function (res) {
-                status = res.status;
-                return res.json()
-            })
-            .then(function (res) {
-                    if (res.error) {
-                        dispatch(logout());
-                    }
-                },
-                function () {
-                    dispatch(logout());
-                });
-    }
-}
+// export function refreshId() {
+//     // eslint-disable-next-line no-unused-vars
+//     let status = "";
+//     const config = {
+//         method: "GET",
+//         // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`}
+//     };
+//     return dispatch => {
+//         fetch(AUTH_API + '/refresh-api?id=' + getUserSessionId(), config)
+//             .then(function (res) {
+//                 status = res.status;
+//                 return res.json()
+//             })
+//             .then(function (res) {
+//                     if (res.error) {
+//                         dispatch(logout());
+//                     }
+//                 },
+//                 function () {
+//                     dispatch(logout());
+//                 });
+//     }
+// }
 
 export function removeBlurEffect(e) {
     e.target.classList.add("normal-image");

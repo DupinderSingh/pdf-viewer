@@ -2,11 +2,12 @@
 import React, {Component} from "react";
 import {withRouter, Link} from 'react-router-dom';
 import {connect} from "react-redux";
-// import {NotificationContainer} from "react-notifications";
+// import {NotificationContainer} from "react-notifications;
 import {notify} from "../app/notification";
 import DialogBox from "../app/dialogbox";
 import {clearLogoutApiResponse, logout, logoutAccount} from '../../actions/account/index';
 import ReactNotification from "react-notifications-component";
+import {getUserSessionId} from "../../services/user";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Sidebar extends Component {
     }
   signout(e) {
       e.preventDefault();
-      this.props.dispatch(logoutAccount({user_id: localStorage.getItem("id")}));
+      this.props.dispatch(logoutAccount({user_id: getUserSessionId()}));
   }
   openDialog() {
       window.setTimeout(()=> {

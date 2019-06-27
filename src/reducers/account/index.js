@@ -22,10 +22,11 @@ import {
     SEND_OTP_SUCCESS,
     SWITCH_PHONE_TO_VERIFY_OTP
 } from "../../types/account";
+const storage = require('node-sessionstorage');
 
 const initialState = {
     auth: {
-        isAuthenticated: localStorage.getItem("id") ? true : false
+        isAuthenticated: sessionStorage.getItem("userId") ? true : false
     },
     phoneNumber: "",
     getCountryCodePageLoading: false,
@@ -108,8 +109,9 @@ export default function accountReducer(state = initialState, action) {
             });
         case LOGIN_ACCOUNT_SUCCESS:
             if (!action.response.data.error) {
-                localStorage.setItem("id", action.response.data.user_id);
-                localStorage.setItem("name", action.response.data.name);
+                storage.setItem("userId", action.response.data.user_id);
+                // localStorage.setItem("id", action.response.data.user_id);
+                // localStorage.setItem("name", action.response.data.name);
                 return Object.assign({}, state, {
                     loginAccountPageLoading: false,
                     loginAccountStatus: 200,
@@ -142,7 +144,8 @@ export default function accountReducer(state = initialState, action) {
                 }
             });
         case LOGOUT_SUCCESS:
-            localStorage.clear();
+            sessionStorage.clear();
+            storage.removeItem("userId");
             return Object.assign({}, state, {
                 auth: {
                     isAuthenticated: false

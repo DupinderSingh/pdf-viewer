@@ -11,7 +11,7 @@ class PreviewFileDialogBox extends Component {
     }
 
 downloadImage(e, img) {
-  e.preventDefault()
+  e.preventDefault();
     setTimeout(() => {
       const response = {
         file: img.toString(),

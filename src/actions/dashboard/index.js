@@ -9,13 +9,14 @@ import {
     CLEAR_FILE_FOLDER_DATA
 } from "../../types/dashboard/index.js";
 import {authApi} from "../app";
+import {getUserSessionId} from "../../services/user";
 
 const AUTH_API = authApi();
 
 export function getPdfFolderStructure(back, path, search, file_name) {
   return {
       [GET_API]: {
-          endpoint: AUTH_API + '/file-record-fetch?user_id=' + localStorage.getItem("id") + '&file_path=' + path + "&back=" + back + "&search=" + search + "&file_name=" + file_name,
+          endpoint: AUTH_API + '/file-record-fetch?user_id=' + getUserSessionId() + '&file_path=' + path + "&back=" + back + "&search=" + search + "&file_name=" + file_name,
           types: [GET_PDF_FOLDER_STRUCTURE_REQUEST, GET_PDF_FOLDER_STRUCTURE_SUCCESS, GET_PDF_FOLDER_STRUCTURE_FAILURE]
       }
   }

@@ -13,6 +13,7 @@ import {notify} from "../../../../components/app/notification";
 import ReactNotification from "react-notifications-component";
 import ReactTelInput from "react-telephone-input";
 import {getCountryCode} from "../../../../actions/account";
+import {getUserSessionId} from "../../../../services/user";
 
 let phone = null;
 const countriesData = countries();
@@ -233,7 +234,7 @@ class AccountDetails extends Component {
         }
         if (e.target.checkValidity() && phoneNumber === 1) {
             this.props.dispatch(updateProfileInfo({
-                id: localStorage.getItem("id"),
+                id: getUserSessionId(),
                 name: this.props.profile.name,
                 email: this.props.profile.email,
                 phone_no: this.props.profile.mobile_data,

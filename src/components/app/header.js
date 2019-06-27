@@ -16,7 +16,7 @@ class Header extends Component{
 
     signout(e) {
         e.preventDefault();
-        this.props.dispatch(logoutAccount({user_id: localStorage.getItem("id")}));
+        this.props.dispatch(logoutAccount({user_id: getUserSessionId()}));
     }
     openDialog() {
         window.setTimeout(()=> {
