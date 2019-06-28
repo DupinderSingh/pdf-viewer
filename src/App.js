@@ -14,6 +14,9 @@ import Login from './container/account/login';
 import {getUserSessionId} from "./services/user";
 
 const storage = require('node-sessionstorage');
+// const Store = require('data-store');
+// const storeRoom = new Store({ path: 'config.json' });
+// let db = require('diskdb');
 
 let isAuthanticated = false;
 let refresh_interval = null;
@@ -65,13 +68,18 @@ class RouteComponent extends Component {
         super(props);
         this.notificationDOMRef = React.createRef();
     }
+
     componentWillMount() {
         // alert(sessionStorage.getItem("userId"));
-        storage.setItem("userId", sessionStorage.getItem("userId"));
-        sessionStorage.clear();
+        if (this.props.isAuthenticated) {
+            storage.setItem("userId", sessionStorage.getItem("userId"));
+            sessionStorage.clear();
+        }
     }
 
     componentDidMount() {
+        // const storeRoom = new Store({ path: 'config.json' });
+        // storeRoom.getState("obj")
         const props = this.props;
         isAuthanticated = props.isAuthenticated;
         refresh_interval = setInterval(function () {
@@ -105,23 +113,48 @@ class RouteComponent extends Component {
     }
 
     render() {
-        $( window ).bind('beforeunload', function()
-        {
-            return 'It is going to be refreshed';
+        // db.connect('/examples/db', ['articles']);
+        // let article = {
+        //     title : "diskDB rocks",
+        //     published : "today",
+        //     rating : "5 stars"
+        // };
+        // db.articles.save(article);
+        // console.log(db.articles.find(), "find the articles..........");
+        // const storeRoom = new Store({ path: 'config.json' });
+        // storeRoom.set('userID', 'HJGHFHGFGHDFG');
+        // console.log(storeRoom.data); //=> { one: 'two' }
+//
+//         store.set('x.y.z', 'boom!');
+//         store.set({ c: 'd' });
+//
+//         console.log(store.get('e.f'));
+// //=> 'g'
+//
+//         console.log(store.get());
+// //=> { name: 'app', data: { a: 'b', c: 'd', e: { f: 'g' } } }
+//
+//         console.log(store.data);
+        $(window).bind('beforeunload', function () {
+            alert("refresh")
+            if (this.props.isAuthenticated) {
+                alert(this.props.isAuthenticated);
+                sessionStorage.setItem("userId", getUserSessionId());
+            }
         });
-        $(window).on('beforeunload', function() {
-            return "You should keep this page open.";
-        });
-        window.addEventListener("beforeunload", ()=> {alert("hgyg")});
-        $('body').bind('beforeunload',function(){
-//do something
-
-            alert("hello")
-            // Cancel the event as stated by the standard.
-            // event.preventDefault();
-            // Chrome requires returnValue to be set.
-            // event.returnValue = '';
-        });
+//         $(window).on('beforeunload', function() {
+//             return "You should keep this page open.";
+//         });
+//         window.addEventListener("beforeunload", ()=> {alert("hgyg")});
+//         $('body').bind('beforeunload',function(){
+// //do something
+//
+//             alert("hello")
+        // Cancel the event as stated by the standard.
+        // event.preventDefault();
+        // Chrome requires returnValue to be set.
+        // event.returnValue = '';
+        // });
         // $( window ).on('unload', function( event ) {
         //     alert(event);
         //     if (this.props.isAuthenticated) {

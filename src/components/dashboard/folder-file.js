@@ -26,11 +26,11 @@ class FolderFile extends Component {
     updateImageVisible(status, ext, value) {
         const required = [{src: value, alt: value, downloadUrl: value}];
         this.props.dispatch(updateFile(ext, value, required));
-        this.props.dispatch(displayImage(status));
-        // window.setTimeout(() => {
-        //     document.getElementById("previewFile").style.display = "block";
-        //     document.getElementById("previewFile").classList.add("in")
-        // }, 400)
+        // this.props.dispatch(displayImage(status));
+        window.setTimeout(() => {
+            document.getElementById("previewFile").style.display = "block";
+            document.getElementById("previewFile").classList.add("in")
+        }, 400)
     }
 
     componentWillReceiveProps(nextProps) {

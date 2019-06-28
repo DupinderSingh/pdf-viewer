@@ -26,7 +26,7 @@ const storage = require('node-sessionstorage');
 
 const initialState = {
     auth: {
-        isAuthenticated: sessionStorage.getItem("userId") ? true : false
+        isAuthenticated: localStorage.getItem("userId") ? true : false
     },
     phoneNumber: "",
     getCountryCodePageLoading: false,

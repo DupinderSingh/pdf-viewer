@@ -50,5 +50,5 @@ export const getUser = id => {
 };
 
 export function getUserSessionId() {
-  return storage.getItem('userId');
+  return localStorage.getItem('userId');
 }
