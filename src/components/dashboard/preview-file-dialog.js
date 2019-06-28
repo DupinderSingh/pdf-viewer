@@ -11,57 +11,19 @@ class PreviewFileDialogBox extends Component {
     }
 
     downloadMyImage(e, image) {
-        const clearUrl = url => url.replace(/^data:image\/\w+;base64,/, '');
-
-        const downloadImage = (name, content, type) => {
-            let link = document.createElement('a');
-            link.style = 'position: fixed; left -10000px;';
-            link.href = `data:application/octet-stream;base64,${encodeURIComponent(content)}`;
-            link.download = /\.\w+/.test(name) ? name : `${name}.${type}`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
-                downloadImage('download', clearUrl(image), "png");
+        // const clearUrl = url => url.replace(/^data:image\/\w+;base64,/, '');
+        //
+        // const downloadImage = (name, content, type) => {
+        //     let link = document.createElement('a');
+        //     link.style = 'position: fixed; left -10000px;';
+        //     link.href = `data:application/octet-stream;base64,${encodeURIComponent(content)}`;
+        //     link.download = /\.\w+/.test(name) ? name : `${name}.${type}`;
+        //     document.body.appendChild(link);
+        //     link.click();
+        //     document.body.removeChild(link);
+        // };
+        //         downloadImage('download', clearUrl(image), "png");
     }
-
-    // downloadImage(e, image){
-    //     e.preventDefault();
-    //     let xhr = new XMLHttpRequest();
-    //     xhr.open("GET", image, true);
-    //     xhr.responseType = "blob";
-    //     xhr.onload = function(){
-    //         let urlCreator = window.URL || window.webkitURL;
-    //         let imageUrl = urlCreator.createObjectURL(this.response);
-    //         let tag = document.createElement('a');
-    //         tag.href = imageUrl;
-    //         tag.download = "image.png";
-    //         document.body.appendChild(tag);
-    //         tag.click();
-    //         document.body.removeChild(tag);
-    //     };
-    //     xhr.send();
-    // }
-
-// downloadImage(e, img) {
-//   e.preventDefault();
-    // let pom = document.createElement('a');
-    // pom.setAttribute('href', 'data:application/octet-stream,' + encodeURIComponent("https://www.searchenginejournal.com/wp-content/uploads/2018/07/The-Smart-Marketer%E2%80%99s-Guide-to-Google-Alerts-760x400.png"));
-    // pom.setAttribute('download', "https://www.searchenginejournal.com/wp-content/uploads/2018/07/The-Smart-Marketer%E2%80%99s-Guide-to-Google-Alerts-760x400.png");
-    // pom.style.display = 'none';
-    // document.body.appendChild(pom);
-    // pom.click();
-    // document.body.removeChild(pom);
-
-    // console.log(img, "image.......");
-  // img = "https://www.searchenginejournal.com/wp-content/uploads/2018/07/The-Smart-Marketer%E2%80%99s-Guide-to-Google-Alerts-760x400.png";
-  //   setTimeout(() => {
-  //     const response = {
-  //       file: img,
-  //     };
-  //     window.location.href = response.file;
-  //   }, 100);
-// }
     render() {
         return (
             <form>

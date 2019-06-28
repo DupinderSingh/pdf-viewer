@@ -5,7 +5,7 @@ import Viewer from 'react-viewer';
 import 'intersection-observer'
 import 'react-viewer/dist/index.css';
 import 'react-image-lightbox/style.css';
-import {displayImage, getPdfFolderStructure, updateFile} from "../../actions/dashboard";
+import {getPdfFolderStructure, updateFile} from "../../actions/dashboard";
 import Error from "../app/error";
 import PreviewFileDialogBox from "../dashboard/preview-file-dialog";
 // import Loader from "../app/spinner/loader";
