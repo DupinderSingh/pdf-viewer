@@ -14,14 +14,14 @@ import {
 import {authApi} from '../app/index';
 import {GET_API} from "../../middleware/token/get-api";
 import {CALL_POST_API} from "../../middleware/token/post-api";
-import {getUserSessionId} from "../../services/user";
+import {getUserId} from "../../services/user";
 
 const AUTH_API = authApi();
 
 export function getProfile() {
     return {
         [GET_API]: {
-            endpoint: AUTH_API + '/user-profile?id=' + getUserSessionId(),
+            endpoint: AUTH_API + '/user-profile?id=' + getUserId(),
             types: [GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE]
         }
     }
@@ -51,7 +51,7 @@ export function updateProfilePic(file, removePic, country) {
             [CALL_POST_API]: {
                 endpoint: AUTH_API + '/removeProfilePhoto',
                 types: [UPDATE_PROFILE_INFO_REQUEST, UPDATE_PROFILE_INFO_SUCCESS, UPDATE_PROFILE_INFO_FAILURE],
-                body: {id: getUserSessionId(), country}
+                body: {id: getUserId(), country}
             }
         }
     } else {
@@ -64,7 +64,7 @@ export function updateProfilePic(file, removePic, country) {
             // headers: {'Authorization': `Bearer ${localStorage.getItem("token")}`},
             body: formData
         };
-        formData.append('id', getUserSessionId());
+        formData.append('id', getUserId());
         formData.append('country', country);
         return dispatch => {
             dispatch(updateProfilePhotoRequest());

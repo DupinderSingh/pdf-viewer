@@ -6,7 +6,7 @@ import {
     DISPLAY_IMAGE, CHANGE_SEARCH_TEMPLATE,
     CLEAR_FILE_FOLDER_DATA
 } from "../../types/dashboard";
-import {getUserSessionId} from "../../services/user";
+import {getUserId} from "../../services/user";
 
 const initialState = {
     getPdfFolderStructurePageLoading: false,
@@ -14,7 +14,7 @@ const initialState = {
     getPdfFolderStructureError: "",
     getPdfFolderStructureMessage: "",
     directory: [],
-    commonPath: "document/" + getUserSessionId(),
+    commonPath: "document/" + getUserId(),
     back: false,
     file: {
         type: "",
@@ -50,7 +50,7 @@ export default function dashboardReducer(state = initialState, action) {
                     getPdfFolderStructureMessage: action.response.data.message,
                     directory: [],
                     back: false,
-                    commonPath: "document/" + getUserSessionId()
+                    commonPath: "document/" + getUserId()
                 });
             }
         case GET_PDF_FOLDER_STRUCTURE_FAILURE:
@@ -61,7 +61,7 @@ export default function dashboardReducer(state = initialState, action) {
                 getPdfFolderStructureMessage: action.response.data.message,
                 directory: [],
                 back: false,
-                commonPath: "document/" + getUserSessionId()
+                commonPath: "document/" + getUserId()
             });
         case UPDATE_FILE:
             return Object.assign({}, state, {
@@ -85,7 +85,7 @@ export default function dashboardReducer(state = initialState, action) {
                 getPdfFolderStructureError: "",
                 getPdfFolderStructureMessage: "",
                 directory: [],
-                commonPath: "document/" + getUserSessionId(),
+                commonPath: "document/" + getUserId(),
                 back: false,
                 file: {
                     type: "",

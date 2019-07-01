@@ -7,7 +7,7 @@ import {notify} from "../app/notification";
 import DialogBox from "../app/dialogbox";
 import {clearLogoutApiResponse, logout, logoutAccount} from '../../actions/account/index';
 import ReactNotification from "react-notifications-component";
-import {getUserSessionId} from "../../services/user";
+import {getUserId} from "../../services/user";
 
 class Sidebar extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class Sidebar extends Component {
     }
   signout(e) {
       e.preventDefault();
-      this.props.dispatch(logoutAccount({user_id: getUserSessionId()}));
+      this.props.dispatch(logoutAccount({user_id: getUserId()}));
   }
   openDialog() {
       window.setTimeout(()=> {

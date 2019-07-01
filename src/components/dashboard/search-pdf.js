@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Background from '../../images/design-anything.jpg';
 import {changeSearchTemplate} from '../../actions/dashboard/index';
-import {getUserSessionId} from "../../services/user";
+import {getUserId} from "../../services/user";
 
 class SearchPdf extends Component {
   componentDidMount() {
@@ -16,7 +16,7 @@ class SearchPdf extends Component {
   }
   componentWillReceiveProps(nextProps, nextContext) {
       if (this.props.commonPath !== nextProps.commonPath) {
-          if (nextProps.commonPath === "document/" + getUserSessionId()) {
+          if (nextProps.commonPath === "document/" + getUserId()) {
               this.props.dispatch(changeSearchTemplate(""));
               const searchField = document.getElementById("searchTemplate");
               if (searchField) {

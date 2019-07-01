@@ -1,7 +1,7 @@
 // Mock data
 import users from '../../data/users';
 import orders from '../../data/orders';
-const storage = require('node-sessionstorage');
+// const storage = require('node-sessionstorage');
 
 function lookupUser(user) {
   const userCopy = JSON.parse(JSON.stringify(user));
@@ -49,6 +49,6 @@ export const getUser = id => {
   });
 };
 
-export function getUserSessionId() {
+export function getUserId() {
   return localStorage.getItem('userId');
 }
