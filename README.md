@@ -117,3 +117,21 @@ REACT_APP_GOOGLE_APP_ID;
 * React, React-DOM and React Redux
  See `package.json` for more Dependencies and packages Required.
 
+```
+Hardeep, 14:58
+GitHub
+Username: support@gojourneylife.com
+Password: 22%KrsK^YVTe
+
+
+check kri detail
+
+14:58
+ok sir
+
+Hardeep, 14:58
+
+Firebase
+Username: support@gojourneylife.com
+Password: $jkX9BJf5dx6
+```
